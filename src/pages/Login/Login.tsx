@@ -8,23 +8,41 @@ import { useNavigate } from "react-router-dom";
 export const PGLogin = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
+  const [erroUsuario, setErroUsuario] = useState("");
+  const [erroSenha, setErroSenha] = useState("");
+  const [erroLogin, setErroLogin] = useState("");
 
   const handleLogin = () => {
-    if (loading) return;
+    setErroUsuario("");
+    setErroSenha("");
+    setErroLogin("");
+
+    let hasError = false;
+
+    if (!usuario.trim()) {
+      setErroUsuario("Informe o usuário.");
+      hasError = true;
+    }
+
+    if (!senha.trim()) {
+      setErroSenha("Informe a senha.");
+      hasError = true;
+    }
+
+    if (hasError) return;
+
     setLoading(true);
 
-    setTimeout(() => {
-      if (usuario === "admin" && senha === "1234") {
-        navigate("/home");
-      } else {
-        alert("Usuário ou senha inválidos!");
-      }
-      setLoading(false);
-    }, 1500);
+    if (usuario === "admin" && senha === "1234") {
+      navigate("/home");
+    } else {
+      setErroLogin("Usuário ou senha inválidos!");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -59,8 +77,9 @@ export const PGLogin = () => {
           src={logo}
           alt="Logo"
           sx={{
-            width: { xs: "55%", sm: "45%", md: "60%" },
-            maxWidth: "350px",
+            width:  "65%",
+            position: { xs: "absolute", md: "static" },
+            top: { xs: "120px", sm: "180px", md: "0px" }
           }}
         />
       </Box>
@@ -75,14 +94,24 @@ export const PGLogin = () => {
           alignItems: "center",
           backgroundColor: theme.palette.background.paper,
           px: 4,
+          mt: { xs: 5, md: 0 }
         }}
       >
-        <Box sx={{ width: "80%", maxWidth: "400px", display: "flex", flexDirection: "column", gap: 2 }}>
+        <Box
+          sx={{
+            minWidth: { xs: "100%",sm:"80%", md: "75%" },
+            display: "flex",
+            flexDirection: "column",
+            gap: 2
+          }}
+        >
 
           <TextField
             label="Usuário"
             value={usuario}
             onChange={(e) => setUsuario(e.target.value)}
+            error={!!erroUsuario}
+            helperText={erroUsuario}
             autoFocus
           />
 
@@ -91,6 +120,8 @@ export const PGLogin = () => {
             type="password"
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
+            error={!!erroSenha}
+            helperText={erroSenha}
           />
 
           <Button
@@ -103,10 +134,22 @@ export const PGLogin = () => {
             }}
             onClick={handleLogin}
             disabled={loading}
-          
-          >
-            {loading ? <CircularProgress size={22} color="info" /> : "ENTRAR"}
+          >{loading ? (
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <span>Entrando...</span>
+              <CircularProgress size={18} color="inherit" />
+            </Box>
+          ) : (
+            "ENTRAR"
+          )}
           </Button>
+
+          {erroLogin && (
+            <Typography color="error" sx={{ fontSize: "14px", fontWeight: 400, mt: 1 }}>
+              {erroLogin}
+            </Typography>
+          )}
+
         </Box>
 
         <Typography

@@ -10,7 +10,7 @@ const theme = createTheme({
     },
     secondary: {
       main: "#D12029",     
-      light: "#ff5b62",
+      light: "#d33b42ff",
       dark: "#8d0012",
       contrastText: "#FFFFFF",
     },
@@ -58,13 +58,13 @@ const theme = createTheme({
           borderRadius: 8,
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "#142b4dff",
+              borderColor: "#757575",
             },
             "&:hover fieldset": {
-              borderColor: "#D12029",
+              borderColor: "#142b4dff",
             },
             "&.Mui-focused fieldset": {
-              borderColor: "#D12029",
+              borderColor: "#142b4dff",
               borderWidth: 2,
             },
           },
