@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 
 import LogoutIcon from "@mui/icons-material/Logout";
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
@@ -27,7 +28,6 @@ const drawerWidth = 240;
 export default function MainLayout() {
   const [open, setOpen] = useState(true);
   const [openMob, setOpenMob] = useState(false);
-
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -58,6 +58,11 @@ export default function MainLayout() {
       path: "/atendimentos",
     },
     {
+      text: "Inventario",
+      icon: <Inventory2Icon />,
+      path: "/inventario",
+    },
+    {
       text: "Usuários",
       icon: <GroupIcon />,
       path: "/usuarios",
@@ -67,13 +72,12 @@ export default function MainLayout() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-
       <AppBar
         position="fixed"
         sx={{
           zIndex: theme.zIndex.drawer + 1,
           backgroundColor: theme.palette.secondary.main,
-          
+
         }}
       >
         <Toolbar>
@@ -165,7 +169,7 @@ export default function MainLayout() {
         component="main"
         sx={{
           flexGrow: 1,
-          bgcolor: theme.palette.background.default,
+          bgcolor: theme.palette.background.paper,
           p: 2,
           minHeight: "100vh",
           overflowX: "hidden"

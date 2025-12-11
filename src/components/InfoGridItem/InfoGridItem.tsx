@@ -1,12 +1,15 @@
 import { Box, Typography, Paper } from "@mui/material";
 import { type ReactNode, useState } from "react";
-import { ModalSolicitacoes } from "../../pages/Solicitacoes/Modal/ModalSolicitacoes";
+import { ModalSolicitacoes } from "../Modal/ModalSolicitacoes";
+import theme from "../../theme";
 
 type InfoGridItemProps = {
   icon: ReactNode;
   numero: string | number;
   titulo: string;
   mensagem?: string;
+  nome?: string;
+  local?: string
   status?: "resolvido" | "pendente" | "aberto" | string;
 };
 
@@ -15,6 +18,8 @@ export const InfoGridItem = ({
   numero,
   titulo,
   mensagem,
+  nome,
+  local,
   status = "resolvido",
 }: InfoGridItemProps) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -33,17 +38,22 @@ export const InfoGridItem = ({
           transition: "0.2s",
           "&:hover": { backgroundColor: "#f5f5f5" },
           borderBottom: "1px solid #ddd",
+          borderRadius: 0
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Box sx={{ width: 40, height: 40 }}>{icon}</Box>
           <Box>
-            <Typography fontWeight={600} mb={1}>
-              {numero} — <span style={{ fontWeight: 500 }}>{titulo}</span>
+            <Typography fontWeight={600}>
+              {numero} — <span style={{ fontWeight: 600 }}>{titulo}</span>
             </Typography>
 
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Typography variant="body2" sx={{ color: theme.palette.primary.main, fontWeight: 450 }}>{nome}</Typography>
+              <Typography variant="body2" sx={{ color: theme.palette.secondary.main, fontWeight: 450 }}>{local}</Typography>
+            </Box>
             {mensagem && (
-              <Typography variant="body2" color="gray">
+              <Typography variant="body1" color="gray">
                 {mensagem}
               </Typography>
             )}

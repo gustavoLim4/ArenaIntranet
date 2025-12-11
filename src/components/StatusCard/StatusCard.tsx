@@ -27,37 +27,41 @@ export const StatusCard = ({
         cursor: "pointer",
         transition: "0.2s",
         "&:hover": { backgroundColor: "#fafafa" },
+        mt: { xs: 1, md: 0 }
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <Typography fontWeight={600}>{titulo}</Typography>
-        <Box
-          sx={{
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            backgroundColor: corStatus,
-          }}
-        />
+      <Box sx={{ display: { xs: "flex", md: "block", justifyContent: "space-between", alignItems: "center" } }}>
+        <Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Typography fontWeight={600}>{titulo}</Typography>
+            <Box
+              sx={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: corStatus,
+              }}
+            />
+          </Box>
+
+          <Typography
+            variant="body2"
+            color="gray"
+            mt={1}
+            sx={{ minHeight: 20, display: { xs: "none", md: "block" } }}
+          >
+            {descricao}
+          </Typography>
+        </Box>
+        <Typography
+          mt={{ xs: 0, md: 2 }}
+          fontSize={{ xs: 20, md: 28 }}
+          fontWeight={700}
+          color="#424242ff"
+        >
+          {valor}
+        </Typography>
       </Box>
-
-      <Typography
-        variant="body2"
-        color="gray"
-        mt={1}
-        sx={{ minHeight: 20 }}
-      >
-        {descricao}
-      </Typography>
-
-      <Typography
-        mt={2}
-        fontSize={28}
-        fontWeight={700}
-        color="#424242ff"
-      >
-        {valor}
-      </Typography>
     </Paper>
   );
 };

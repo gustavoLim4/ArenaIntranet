@@ -15,12 +15,12 @@
     "@fontsource/roboto": "^5.2.9",
     "@mui/icons-material": "^7.3.6",
     "@mui/material": "^7.3.6",
+    "marquee": "^0.2.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-fast-marquee": "^1.6.5",
     "react-router-dom": "^7.10.1",
-    "react-slick": "^0.31.0",
-    "slick-carousel": "^1.8.1"
+    "swiper": "^11.2.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

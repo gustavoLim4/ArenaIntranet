@@ -41,7 +41,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
         backgroundColor: active ? theme.palette.secondary.main : "#fff",
         transition: "all 0.2s ease",
         marginBottom: "8px",
-        minHeight: small ? "20px" : "40px",
+        minHeight: small ? "20px" : "50px",
       }}
     >
       <Box
@@ -52,7 +52,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {icon}
           </Box>
