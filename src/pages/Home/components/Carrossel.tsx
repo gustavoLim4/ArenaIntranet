@@ -70,12 +70,12 @@ export const CarrosselBanners = () => {
                 navigation={{ nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev", }}
                 speed={700}
                 onAutoplayTimeLeft={onAutoplayTimeLeft}
-                style={{ width: "100%", height: "320px", }}>
+                style={{ width: "100%", height: "100%"}}>
                 <SwiperSlide>
                     <Box
                         component="img"
                         src={banner1}
-                        sx={{ width: "100%", height: "100%", objectFit: "contain" }}
+                        sx={{ width: "100%", height: "100%", objectFit: "inherit", borderRadius: 4}}
                     />
                 </SwiperSlide>
 
@@ -83,7 +83,7 @@ export const CarrosselBanners = () => {
                     <Box
                         component="img"
                         src={banner2}
-                        sx={{ width: "100%", height: "100%", objectFit: "contain" }}
+                        sx={{ width: "100%", height: "100%", objectFit: "inherit", borderRadius: 4}}
                     />
                 </SwiperSlide>
 
@@ -91,7 +91,7 @@ export const CarrosselBanners = () => {
                     <Box
                         component="img"
                         src={banner3}
-                        sx={{ width: "100%", height: "100%", objectFit: "contain" }}
+                        sx={{ width: "100%", height: "100%", objectFit: "inherit" , borderRadius: 4}}
                     />
                 </SwiperSlide>
             </Swiper>

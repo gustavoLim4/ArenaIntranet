@@ -1,12 +1,7 @@
 
-import {
-    Box,
-    Typography,
-    Avatar,
-} from "@mui/material";
+import { Box, Typography, Avatar, } from "@mui/material";
 import Marquee from "react-fast-marquee";
 import { CarrosselBanners } from "./components/Carrossel";
-
 
 const aniversariantes = [
     { nome: "FLAVIO DOS SANTOS", data: "10/12", status: "Hoje!" },
@@ -17,17 +12,16 @@ const aniversariantes = [
     { nome: "ANDRE MIGUEL GONÇALVES", data: "03/12" },
 ];
 
-
 export default function Home() {
 
     return (
-        <Box sx={{ width: "100%", p: 3, boxShadow: 3, borderRadius: 2, minHeight: "85vh", display: "flex", flexDirection: "column", }}>
+        <Box sx={{ width: "100%", p: 3, boxShadow: 3, borderRadius: 2, minHeight: "100vh", display: "flex", flexDirection: "column", }}>
             <Box mb={5}>
                 <CarrosselBanners />
             </Box>
 
             <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
-                Aniversariantes do mês! 🎉🎂
+                Aniversariantes do mês! 🥳🎂
             </Typography>
             <Marquee
                 speed={60}
