@@ -50,7 +50,7 @@ export default function MainLayout() {
     {
       text: "Solicitações",
       icon: <PermContactCalendarIcon />,
-      path: "/solocitacoes",
+      path: "/solicitacoes",
     },
     {
       text: "Atendimentos",

@@ -17,7 +17,7 @@ export const StatusCard = ({
 }: StatusCardProps) => {
   return (
     <Paper
-      elevation={0}
+      elevation={.5}
       onClick={onClick}
       sx={{
         width: "100%",
@@ -26,7 +26,7 @@ export const StatusCard = ({
         border: "1px solid #ddd",
         cursor: "pointer",
         transition: "0.2s",
-        "&:hover": { backgroundColor: "#fafafa" },
+        "&:hover": { backgroundColor: "#f0f0f0ff" },
         mt: { xs: 1, md: 0 }
       }}
     >

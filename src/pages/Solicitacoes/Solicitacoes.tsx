@@ -6,7 +6,7 @@ import theme from "../../theme";
 
 export const Solicitacoes = () => {
   return (
-    <Box sx={{ width: "100%", p: 3, boxShadow: 3, borderRadius: 2, minHeight: "85vh", display: "flex", flexDirection: "column", }}>
+    <Box sx={{ width: "100%", p: 3, boxShadow: "0 0 10px rgba(12, 12, 12, 0.33)", borderRadius: 2, minHeight: "85vh", display: "flex", flexDirection: "column", }}>
       <Box sx={{ display: "flex", justifyContent: "end", mb: 2 }}>
         <Button startIcon={<AddIcon />} variant="contained" sx={{ bgcolor: theme.palette.primary.main }}>
           Novo chamado

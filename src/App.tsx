@@ -1,11 +1,12 @@
 import MainLayout from "./components/layout/MainLayout";
-import Home from "./pages/Home/Home";
 import { PGLogin } from "./pages/Login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Usuarios from "./pages/Usuarios/Usuarios";
-import {Atendimentos} from "./pages/Atendimentos/Atendimentos";
-import {Solicitacoes} from "./pages/Solicitacoes/Solicitacoes";
+import { Usuarios } from "./pages/Usuarios/Usuarios";
+import { Atendimentos } from "./pages/Atendimentos/Atendimentos";
+import { Solicitacoes } from "./pages/Solicitacoes/Solicitacoes";
 import { Inventario } from "./pages/Inventario/Inventario";
+import { Home } from "./pages/Home/Home";
+
 
 export const App = () => {
   return (
@@ -18,7 +19,7 @@ export const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/usuarios" element={<Usuarios />} />
           <Route path="/atendimentos" element={<Atendimentos />} />
-          <Route path="/solocitacoes" element={<Solicitacoes />} />
+          <Route path="/solicitacoes" element={<Solicitacoes />} />
           <Route path="/inventario" element={<Inventario />} />
         </Route>
 

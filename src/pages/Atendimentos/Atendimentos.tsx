@@ -6,7 +6,7 @@ import CallIcon from "@mui/icons-material/Call";
 export const Atendimentos = () => {
   return (
     <Box sx={{
-      width: "100%", p: 3, boxShadow: 3, borderRadius: 2, minHeight: "85vh", display: "flex", flexDirection: "column", }}>
+      width: "100%", p: 3, boxShadow: "0 0 10px rgba(12, 12, 12, 0.33)", borderRadius: 2, minHeight: "85vh", display: "flex", flexDirection: "column", }}>
       <Box sx={{ display: { xs: "block", md: "flex" }, gap: 2, justifyContent: "center", mb: 5 }}>
         <StatusCard
           titulo="Total"
