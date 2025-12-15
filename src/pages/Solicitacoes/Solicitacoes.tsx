@@ -10,7 +10,7 @@ import NovoChamadoModal from "./components/newChamado";
 import type { Atendimento } from "../Atendimentos/types/types";
 import { ModaDetails } from "./components/ModaDetails";
 
-const LIMITE_INICIAL = 5;
+const LIMITE_INICIAL = 6;
 
 export const Solicitacoes = () => {
   const [mostrarTudo, setMostrarTudo] = useState(false);
@@ -73,14 +73,12 @@ export const Solicitacoes = () => {
           </Button>
         </Box>
       )}
-
-      {/* Modal Novo Chamado */}
+      
       <NovoChamadoModal
         open={openNovo}
         onClose={() => setOpenNovo(false)}
       />
 
-      {/* Modal Detalhes */}
       <ModaDetails
         open={openDetalhes}
         onClose={() => setOpenDetalhes(false)}
