@@ -1,26 +1,15 @@
 import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import {
-  AppBar,
-  Box,
-  CssBaseline,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  Toolbar,
-  Typography,
-  useMediaQuery
-} from "@mui/material";
+import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, Toolbar, Typography, useMediaQuery } from "@mui/material";
 
-import LogoutIcon from "@mui/icons-material/Logout";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import theme from "../../theme";
-import { MenuIcon } from "../icon/MenuIcon";
+import MenuIcon from '@mui/icons-material/Menu';
 import { NavButton } from "./NavButton";
 
 const drawerWidth = 240;
@@ -31,6 +20,8 @@ export default function MainLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
+
 
   const handleDrawerToggle = () => {
     setOpen(!open);
@@ -69,6 +60,12 @@ export default function MainLayout() {
     },
   ];
 
+  const currentTitle =
+    menuItems.find((item) =>
+      location.pathname.startsWith(item.path)
+    )?.text || "Arena intranet";
+
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -87,15 +84,22 @@ export default function MainLayout() {
             onClick={handleDrawerToggle}
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <MenuIcon fontSize="large" />
           </IconButton>
 
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-            Arena intranet
+          <Typography
+            variant="h6"
+            noWrap
+            sx={{
+              flexGrow: 1,
+              textAlign: isMobile ? "center" : "left",
+            }}
+          >
+            {currentTitle}
           </Typography>
 
           <IconButton color="inherit" onClick={handleLogout}>
-            <LogoutIcon />
+            <ExitToAppIcon fontSize="large" />
           </IconButton>
         </Toolbar>
       </AppBar>

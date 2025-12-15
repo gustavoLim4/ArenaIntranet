@@ -1,18 +1,6 @@
 import { Box, Typography, Paper } from "@mui/material";
-import { type ReactNode } from "react";
 import theme from "../../theme";
-
-type InfoGridItemProps = {
-  icon: ReactNode;
-  numero: string | number;
-  titulo: string;
-  mensagem?: string;
-  nome?: string;
-  local?: string;
-  horario?: string
-  status?: "resolvido" | "pendente" | "aberto" | string;
-  onClick?: () => void;
-};
+import type { Atendimento } from "../../pages/Atendimentos/types/types";
 
 export const InfoGridItem = ({
   icon,
@@ -23,8 +11,8 @@ export const InfoGridItem = ({
   local,
   horario,
   onClick,
-  status = "resolvido",
-}: InfoGridItemProps) => {
+  status 
+}: Atendimento) => {
 
   return (
     <>
@@ -44,9 +32,9 @@ export const InfoGridItem = ({
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Box sx={{ width: 40, height: 40 }}>{icon}</Box>
+          <Box sx={{ width: 40, height: 40, display: { xs: "none", md: "block" } }}>{icon}</Box>
           <Box>
-            <Typography fontWeight={600}>
+            <Typography fontWeight={600} fontSize={{ xs: 15, md: 16 }}>
               {numero} — <span style={{ fontWeight: 600 }}>{titulo}</span>
             </Typography>
 
@@ -55,25 +43,21 @@ export const InfoGridItem = ({
               <Typography variant="body2" sx={{ color: theme.palette.secondary.main, fontWeight: 450 }}>{local}</Typography>
             </Box>
             {mensagem && (
-              <Typography variant="body1" color="gray">
+              <Typography variant="body1" color="gray" fontSize={{ xs: 15, md: 16 }}>
                 {mensagem}
               </Typography>
             )}
           </Box>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "end", gap: .5 }}>
-          <Typography sx={{ fontSize: 12 }}>
+          <Typography sx={{ fontSize: 12, display: { xs: "none", md: "block" } }}>
             {horario}
           </Typography>
           <Typography
             variant="body2"
             sx={{
               color:
-                status === "resolvido"
-                  ? "green"
-                  : status === "pendente"
-                    ? "orange"
-                    : "blue",
+                status === "Resolvido" ? "green" : status === "Pendente" ? "red" : "#c4be17",
               fontWeight: "bold",
             }}
           >

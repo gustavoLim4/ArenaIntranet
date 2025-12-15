@@ -1,5 +1,5 @@
 import MainLayout from "./components/layout/MainLayout";
-import { PGLogin } from "./pages/Login/Login";
+import { Login } from "./pages/Login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Usuarios } from "./pages/Usuarios/Usuarios";
 import { Atendimentos } from "./pages/Atendimentos/Atendimentos";
@@ -13,7 +13,7 @@ export const App = () => {
     <BrowserRouter>
       <Routes>
 
-        <Route path="/" element={<PGLogin />} />
+        <Route path="/" element={<Login />} />
 
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />

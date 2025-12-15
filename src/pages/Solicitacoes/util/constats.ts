@@ -1,59 +1,73 @@
-// mocks/solicitacoes.mock.ts
-export const SOLICITACOES_MOCK = [
+import type { Atendimento } from "../../Atendimentos/types/types";
+
+export const SOLICITACOES_MOCK: Atendimento[] = [
   {
     id: 1,
     numero: "67894",
+    nome: "Gustavo",
     titulo: "Outro problema",
-    mensagem: "Meu pc está desligando toda hora",
-    status: "resolvido",
-    horario: "10/09/2025 - 10:09"
+    local: "Desenvolvimento front-end",
+    mensagem: "Meu PC está desligando toda hora",
+    status: "Resolvido",
+    horario: "10/09/2025 - 10:09",
   },
   {
     id: 2,
     numero: "67895",
-    titulo: "Reposição de papel",
-    mensagem: "Impressora sem papel",
-    status: "aberto",
-    horario: "13/10/2025 - 15:09"
+    nome: "Gustavo",
+    titulo: "Requisição de Papel",
+    mensagem: "Impressora do setor está sem papel",
+    status: "Em atendimento",
+    horario: "13/10/2025 - 15:09",
   },
   {
     id: 3,
     numero: "67896",
-    titulo: "Erro no sistema",
-    mensagem: "Sistema não abre",
-    status: "pendente",
-    horario: "10/09/2025 - 10:09"
+    nome: "Gustavo",
+    local: "Desenvolvimento front-end",
+    titulo: "Problema com o Mecauto",
+    mensagem: "Erro ao acessar o sistema Mecauto",
+    status: "Pendente",
+    horario: "10/09/2025 - 10:09",
   },
   {
     id: 4,
     numero: "67897",
-    titulo: "Outro problema",
-    mensagem: "PC travando",
-    status: "resolvido",
-    horario: "10/09/2025 - 10:09"
+    nome: "Gustavo",
+    local: "Desenvolvimento front-end",
+    titulo: "Problema com equipamento",
+    mensagem: "Computador travando constantemente",
+    status: "Resolvido",
+    horario: "10/09/2025 - 10:09",
   },
   {
     id: 5,
     numero: "67898",
-    titulo: "Internet lenta",
-    mensagem: "Rede instável",
-    status: "pendente",
-    horario: "10/09/2025 - 10:09"
+    nome: "Gustavo",
+    local: "Desenvolvimento front-end",
+    titulo: "Problema com equipamento",
+    mensagem: "Internet muito lenta no setor",
+    status: "Pendente",
+    horario: "10/09/2025 - 10:09",
   },
   {
     id: 6,
     numero: "67899",
-    titulo: "Sem acesso",
-    mensagem: "Usuário bloqueado",
-    status: "aberto",
-    horario: "10/09/2025 - 10:09"
+    nome: "Gustavo",
+    local: "Desenvolvimento front-end",
+    titulo: "Problema com o meu ramal",
+    mensagem: "Telefone sem sinal para chamadas",
+    status: "Resolvido",
+    horario: "10/09/2025 - 10:09",
   },
   {
     id: 7,
     numero: "67900",
-    titulo: "Monitor apagado",
-    mensagem: "Tela não liga",
-    status: "aberto",
-    horario: "10/09/2025 - 10:09"
+    nome: "Gustavo",
+    local: "Desenvolvimento front-end",
+    titulo: "Troca de Toner",
+    mensagem: "Impressora solicitando troca de toner",
+    status: "Em atendimento",
+    horario: "10/09/2025 - 10:09",
   },
 ];

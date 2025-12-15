@@ -2,6 +2,7 @@
 import { Box, Typography, Avatar, } from "@mui/material";
 import Marquee from "react-fast-marquee";
 import { CarrosselBanners } from "./components/Carrossel";
+import { TelasStyles } from "../../styles/styleresposecomun.styles";
 
 const aniversariantes = [
     { nome: "FLAVIO DOS SANTOS", data: "10/12", status: "Hoje!" },
@@ -12,10 +13,10 @@ const aniversariantes = [
     { nome: "ANDRE MIGUEL GONÇALVES", data: "03/12" },
 ];
 
-export const  Home = () => {
+export const Home = () => {
 
     return (
-        <Box sx={{ width: "100%", p: 3, boxShadow: "0 0 10px rgba(12, 12, 12, 0.33)", borderRadius: 2, minHeight: "100vh", display: "flex", flexDirection: "column", }}>
+        <Box sx={{ ...TelasStyles }}>
             <Box mb={5}>
                 <CarrosselBanners />
             </Box>

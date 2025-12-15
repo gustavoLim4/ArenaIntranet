@@ -11,6 +11,8 @@ import {
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import type { UsuarioForm } from "../types/types";
 import { DADOS_EXIBICAO_USARIOS_FORM } from "../util/utils";
+import { useMediaQuery } from "@mui/material";
+
 
 export const EMPRESAS_MOCK = [
     "Arena vidros",
@@ -28,6 +30,7 @@ interface UsuarioDrawerProps {
 export const UsuarioDrawer = ({ open, onClose, modo, usuarioSelecionado, onSave }: UsuarioDrawerProps) => {
     const theme = useTheme();
     const [loading, setLoading] = useState(false);
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const [form, setForm] = useState<UsuarioForm>({
         nome: "",
@@ -58,6 +61,7 @@ export const UsuarioDrawer = ({ open, onClose, modo, usuarioSelecionado, onSave 
     const handleSave = () => {
         onSave(form);
         onClose();
+        setLoading(true)
     };
 
     const handleDelete = () => {
@@ -109,10 +113,18 @@ export const UsuarioDrawer = ({ open, onClose, modo, usuarioSelecionado, onSave 
                         {modo === "editar" && (
                             <Button
                                 color="error"
-                                startIcon={<DeleteOutlineIcon />}
                                 onClick={handleDelete}
+                                variant={isMobile ? "contained" : "outlined"}
+                                startIcon={!isMobile ? <DeleteOutlineIcon /> : undefined}
+                                sx={{
+                                    mt: .5,
+                                    minWidth: isMobile ? 40 : "auto",
+                                    height: isMobile ? 40 : "auto",
+                                    borderRadius: isMobile ? "50%" : 1,
+                                    padding: isMobile ? 0 : "6px 16px",
+                                }}
                             >
-                                Deletar
+                                {isMobile ? <DeleteOutlineIcon /> : "Deletar"}
                             </Button>
                         )}
                         <Box sx={{ display: "flex", gap: 1, justifyContent: "end", width: "100%" }}>

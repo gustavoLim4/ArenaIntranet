@@ -1,9 +1,8 @@
 // components/ModalAtendimento.tsx
-import { Box, Modal, Typography, TextField, Button, Select, MenuItem } from "@mui/material";
-import type { Atendimento } from "../types/types";
-import { statusColor } from "../util/help";
-import { useState } from "react";
+import { Box, Modal, Typography, TextField } from "@mui/material";
 import FileUploadButton from "../../../components/FileUploadButton/FileUploadButton";
+import type { Atendimento } from "../../Atendimentos/types/types";
+import { statusColor } from "../../Atendimentos/util/help";
 
 type Props = {
     open: boolean;
@@ -11,19 +10,7 @@ type Props = {
     atendimento: Atendimento | null;
 };
 
-type Status = "aceitar" | "encerrar" | "reabrir";
-
-
-
-export const ModalAtendimento = ({ open, onClose, atendimento }: Props) => {
-    const [statusAtual, setStatusAtual] = useState<Status>("aceitar");
-    const isEncerrado = statusAtual === "encerrar";
-
-    const opcoes = [
-        { label: "Aceitar", value: "aceitar", disabled: isEncerrado },
-        { label: "Encerrar", value: "encerrar", disabled: isEncerrado },
-        { label: "Reabrir", value: "reabrir", disabled: !isEncerrado },
-    ];
+export const ModaDetails = ({ open, onClose, atendimento }: Props) => {
 
     if (!atendimento) return null;
 
@@ -66,44 +53,19 @@ export const ModalAtendimento = ({ open, onClose, atendimento }: Props) => {
                 <TextField
                     label="Mensagem"
                     multiline
+                    
                     minRows={3}
-                    sx={{ color: "primary.main", mb: 2 }}
-                    value={atendimento.mensagem}
-                    InputProps={{
-                        readOnly: true,
-                    }}
+                    value={atendimento.mensagem ?? ""}
+                    disabled
                 />
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 2, }}   >
                     <FileUploadButton
                         multiple
+                        disabled
                         onChange={(files) => {
                             console.log(files);
                         }}
                     />
-
-                    <Box sx={{ display: "flex", gap: 2 }}>
-                        <Select
-                            size="small"
-                            value={statusAtual}
-                            onChange={(e) => setStatusAtual(e.target.value as Status)}
-                            sx={{ minWidth: 160, p: "5px 0px" }}
-                        >
-                            {opcoes.map((opcao) => (
-                                <MenuItem
-                                    key={opcao.value}
-                                    value={opcao.value}
-                                    disabled={opcao.disabled}
-                                    sx={{ opacity: opcao.disabled ? 0.4 : 1 }}
-                                >
-                                    {opcao.label}
-                                </MenuItem>
-                            ))}
-                        </Select>
-
-                        <Button variant="contained" onClick={() => console.log("Ação:", statusAtual)} >
-                            {statusAtual.charAt(0).toUpperCase() + statusAtual.slice(1)}
-                        </Button>
-                    </Box>
                 </Box>
             </Box>
         </Modal>

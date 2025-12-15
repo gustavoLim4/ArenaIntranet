@@ -4,16 +4,20 @@ import { InfoGridItem } from "../../components/InfoGridItem/InfoGridItem";
 import CallIcon from "@mui/icons-material/Call";
 import { useState } from "react";
 import { ModalAtendimento } from "./Modal/AntedimentoModal";
-import type { Atendimento } from "./types/types";
+import type { Atendimento, FiltroStatus } from "./types/types";
 import { ATENDIMENTOS_MOCK } from "./util/constast";
 import theme from "../../theme";
+import { dadosNãoEncostrado, TelasStyles } from "../../styles/styleresposecomun.styles";
+
 
 export const Atendimentos = () => {
   const [openModal, setOpenModal] = useState(false);
   const [atendimentoSelecionado, setAtendimentoSelecionado] = useState<Atendimento | null>(null);
   const [mostrarTudo, setMostrarTudo] = useState(false);
+  const [filtroStatus, setFiltroStatus] = useState<FiltroStatus>("TODOS")
   const LIMITE_INICIAL = 5;
-  const solicitacoesVisiveis = mostrarTudo ? ATENDIMENTOS_MOCK : ATENDIMENTOS_MOCK.slice(0, LIMITE_INICIAL);
+  const atendimentosFiltrados = filtroStatus === "TODOS" ? ATENDIMENTOS_MOCK : ATENDIMENTOS_MOCK.filter((item) => item.status === filtroStatus);
+  const solicitacoesVisiveis = mostrarTudo ? atendimentosFiltrados : atendimentosFiltrados.slice(0, LIMITE_INICIAL);
 
   const abrirModal = (item: Atendimento) => {
     setAtendimentoSelecionado(item);
@@ -28,54 +32,76 @@ export const Atendimentos = () => {
 
 
   return (
-    <Box sx={{
-      width: "100%", p: 3, boxShadow: "0 0 10px rgba(12, 12, 12, 0.33)", borderRadius: 2, minHeight: "100vh", display: "flex", flexDirection: "column",
-    }}>
+    <Box sx={{ ...TelasStyles }}>
       <Box sx={{ display: { xs: "block", md: "flex" }, gap: 2, justifyContent: "center", mb: 5 }}>
         <StatusCard
           titulo="Total"
           descricao="Todos os atendimentos do seu departamento"
-          valor={0}
+          valor={ATENDIMENTOS_MOCK.length}
           corStatus="#333"
+          onClick={() => {
+            setFiltroStatus("TODOS");
+            setMostrarTudo(false);
+          }}
         />
         <StatusCard
-          titulo="Pendente"
+          titulo="Em aberto"
           descricao="Todos os chamados em aberto para ser atendido"
-          valor={0}
-          corStatus="#ffae00ff"
+          valor={ATENDIMENTOS_MOCK.filter(i => i.status === "Pendente").length}
+          corStatus="red"
+          onClick={() => {
+            setFiltroStatus("Pendente");
+            setMostrarTudo(false);
+          }}
         />
         <StatusCard
           titulo="Em atendimento"
           descricao="Todos os chamados que estão sendo atendidos"
-          valor={0}
+          valor={ATENDIMENTOS_MOCK.filter(i => i.status === "Em atendimento").length}
           corStatus="#c4be17"
+          onClick={() => {
+            setFiltroStatus("Em atendimento");
+            setMostrarTudo(false);
+          }}
         />
         <StatusCard
           titulo="Resolvido"
           descricao="Todos os chamados que já estão resolvidos"
-          valor={0}
+          valor={ATENDIMENTOS_MOCK.filter(i => i.status === "Resolvido").length}
           corStatus="green"
+          onClick={() => {
+            setFiltroStatus("Resolvido");
+            setMostrarTudo(false);
+          }}
         />
       </Box>
       <Box sx={{ flexGrow: 1 }}>
-        {solicitacoesVisiveis.map((item) => (
-          <InfoGridItem
-            key={item.id}
-            icon={<CallIcon sx={{ fontSize: 40, color: "#003366" }} />}
-            numero={item.numero}
-            titulo={item.titulo}
-            nome={item.nome}
-            local={item.local}
-            mensagem={item.mensagem}
-            status={item.status}
-            horario={item.horario}
-            onClick={() => abrirModal(item)}
-          />
-        ))}
+        {solicitacoesVisiveis.length === 0 ? (
+          <Box sx={{ ...dadosNãoEncostrado }}>
+            Nenhum chamado encontrado!
+          </Box>
+        ) : (
+          solicitacoesVisiveis.map((item) => (
+            <InfoGridItem
+              key={item.id}
+              id={item.id}
+              icon={<CallIcon sx={{ fontSize: 40, color: "#003366" }} />}
+              numero={item.numero}
+              titulo={item.titulo}
+              nome={item.nome}
+              local={item.local}
+              mensagem={item.mensagem}
+              status={item.status}
+              horario={item.horario}
+              onClick={() => abrirModal(item)}
+            />
+          ))
+        )}
       </Box>
+
       <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
         {ATENDIMENTOS_MOCK.length > LIMITE_INICIAL && (
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Button
               variant="contained"
               sx={{ bgcolor: theme.palette.primary.main }}

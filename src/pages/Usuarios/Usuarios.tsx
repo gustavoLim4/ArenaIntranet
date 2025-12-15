@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material"
+import { Box, Button, Typography, useMediaQuery } from "@mui/material"
 import SearchInput from "../../components/SearchInput/SearchInput"
 import theme from "../../theme"
 import AddIcon from '@mui/icons-material/Add';
@@ -16,6 +16,7 @@ export const Usuarios = () => {
   const [modo, setModo] = useState<"criar" | "editar">("criar");
   const [usuarioSelecionado, setUsuarioSelecionado] = useState<any>(null);
   const [search, setSearch] = useState("");
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [rows, setRows] = useState<Usuario[]>(USUARIOS_MOCK);
 
   const abrirCriar = () => {
@@ -53,9 +54,7 @@ export const Usuarios = () => {
   const actions = [
     {
       icon: (
-        <EditOutlinedIcon
-          sx={{ fontSize: 25, color: theme.palette.primary.main }}
-        />
+        <EditOutlinedIcon sx={{ fontSize: 25, color: theme.palette.primary.main }} />
       ),
       label: "Editar",
       onClick: (row: Usuario) => abrirEditar(row),
@@ -64,8 +63,8 @@ export const Usuarios = () => {
 
   return (
     <Box sx={{ ...TelasStyles }}>
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 5 }}>
-        <Box sx={{ width: "60%" }}>
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: { xs: 2, md: 5 } }}>
+        <Box sx={{ width: { xs: "75%", md: "69%" } }}>
           <SearchInput
             variant="rightIcon"
             placeholder="Buscar por nome"
@@ -73,9 +72,29 @@ export const Usuarios = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </Box>
-        <Button onClick={abrirCriar} startIcon={<AddIcon />} variant="contained" sx={{ bgcolor: theme.palette.primary.main }}>
-          Novo usuário
-        </Button>
+        <Box>
+          {isMobile ? (
+            <Button
+              onClick={abrirCriar}
+              sx={{
+                minWidth: "48px",
+                width: "48px",
+                height: "48px",
+                borderRadius: "50%",
+                backgroundColor: "primary.main",
+                color: "#fff",
+                padding: 0,
+                "&:hover": { backgroundColor: "primary.dark" },
+              }}
+            >
+              <AddIcon />
+            </Button>
+          ) : (
+            <Button startIcon={<AddIcon />} onClick={abrirCriar} variant="contained">
+              Novo usuário
+            </Button>
+          )}
+        </Box>
       </Box>
       <Box sx={containerTableResposeStyles}>
         {filteredRows.length === 0 ? (

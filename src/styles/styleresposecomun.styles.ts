@@ -27,10 +27,10 @@ export const scrollResponse = (theme: Theme) => ({
 
 export const TelasStyles = {
     width: "100%",
-    p: 3,
+    p: {xs: 2, md: 3},
     boxShadow: "0 0 10px rgba(12, 12, 12, 0.33)",
     borderRadius: 2,
-    minHeight: "100vh",
+    minHeight: "90vh",
     display: "flex",
     flexDirection: "column",
 }

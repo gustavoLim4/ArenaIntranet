@@ -3,15 +3,15 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#142b4dff",
-      light: "#0d1f3a26",
+      main: "#142B4D",
+      light: "#0D1F3A26",
       dark: "#0D1F3A",
       contrastText: "#FFFFFF",
     },
     secondary: {
       main: "#D12029",
-      light: "#d33b42ff",
-      dark: "#8d0012",
+      light: "#D33B42",
+      dark: "#8D0012",
       contrastText: "#FFFFFF",
     },
     background: {
@@ -28,22 +28,33 @@ const theme = createTheme({
     fontFamily: "Roboto, Arial, sans-serif",
     button: {
       fontWeight: 600,
-    }
+      textTransform: "none",
+    },
   },
 
   components: {
+    /* ========================
+       BUTTON
+    ======================== */
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none",
           fontWeight: 600,
           fontSize: "1rem",
           padding: "10px 24px",
           borderRadius: 8,
+
+          "&.Mui-disabled": {
+            opacity: 0.5,
+            cursor: "not-allowed",
+          },
         },
       },
     },
 
+    /* ========================
+       TEXT FIELD
+    ======================== */
     MuiTextField: {
       defaultProps: {
         variant: "outlined",
@@ -57,31 +68,44 @@ const theme = createTheme({
             "& fieldset": {
               borderColor: "#757575",
             },
+
             "&:hover fieldset": {
-              borderColor: "#142b4dff",
+              borderColor: "#142B4D",
             },
+
             "&.Mui-focused fieldset": {
-              borderColor: "#142b4dff",
+              borderColor: "#142B4D",
               borderWidth: 2,
+            },
+
+            "&.Mui-disabled": {
+              opacity: 0.6,
             },
           },
         },
       },
     },
 
-
+    /* ========================
+       SWITCH
+    ======================== */
     MuiSwitch: {
       styleOverrides: {
+        root: {
+          "&.Mui-disabled": {
+            opacity: 0.5,
+          },
+        },
         switchBase: {
           "&.Mui-checked": {
-            color: "#fff",
+            color: "#FFFFFF",
             "& + .MuiSwitch-track": {
               backgroundColor: "#0D1F3A",
             },
           },
         },
         track: {
-          backgroundColor: "#b5b5b5",
+          backgroundColor: "#B5B5B5",
         },
       },
     },

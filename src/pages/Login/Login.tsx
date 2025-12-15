@@ -5,7 +5,7 @@ import logo from "../../img/logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const PGLogin = () => {
+export const Login = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState("");
