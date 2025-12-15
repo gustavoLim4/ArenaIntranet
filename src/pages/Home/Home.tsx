@@ -15,7 +15,7 @@ const aniversariantes = [
 export const  Home = () => {
 
     return (
-        <Box sx={{ width: "100%", p: 3, boxShadow: "0 0 10px rgba(12, 12, 12, 0.33)", borderRadius: 2, minHeight: "85vh", display: "flex", flexDirection: "column", }}>
+        <Box sx={{ width: "100%", p: 3, boxShadow: "0 0 10px rgba(12, 12, 12, 0.33)", borderRadius: 2, minHeight: "100vh", display: "flex", flexDirection: "column", }}>
             <Box mb={5}>
                 <CarrosselBanners />
             </Box>

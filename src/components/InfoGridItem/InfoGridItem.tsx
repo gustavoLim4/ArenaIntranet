@@ -1,6 +1,5 @@
 import { Box, Typography, Paper } from "@mui/material";
-import { type ReactNode, useState } from "react";
-import { ModalSolicitacoes } from "../Modal/ModalSolicitacoes";
+import { type ReactNode } from "react";
 import theme from "../../theme";
 
 type InfoGridItemProps = {
@@ -9,8 +8,10 @@ type InfoGridItemProps = {
   titulo: string;
   mensagem?: string;
   nome?: string;
-  local?: string
+  local?: string;
+  horario?: string
   status?: "resolvido" | "pendente" | "aberto" | string;
+  onClick?: () => void;
 };
 
 export const InfoGridItem = ({
@@ -20,15 +21,16 @@ export const InfoGridItem = ({
   mensagem,
   nome,
   local,
+  horario,
+  onClick,
   status = "resolvido",
 }: InfoGridItemProps) => {
-  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
       <Paper
         elevation={0}
-        onClick={() => setOpen(true)}
+        onClick={onClick}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -61,7 +63,7 @@ export const InfoGridItem = ({
         </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "end", gap: .5 }}>
           <Typography sx={{ fontSize: 12 }}>
-            10/09/2025 - 18:44:20
+            {horario}
           </Typography>
           <Typography
             variant="body2"
@@ -79,14 +81,6 @@ export const InfoGridItem = ({
           </Typography>
         </Box>
       </Paper>
-
-      <ModalSolicitacoes
-        open={open}
-        onClose={() => setOpen(false)}
-        numero={numero}
-        titulo={titulo}
-        mensagem={mensagem}
-      />
     </>
   );
 };

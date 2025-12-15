@@ -3,13 +3,13 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#142b4dff",     
+      main: "#142b4dff",
       light: "#0d1f3a26",
       dark: "#0D1F3A",
       contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#D12029",     
+      main: "#D12029",
       light: "#d33b42ff",
       dark: "#8d0012",
       contrastText: "#FFFFFF",
@@ -51,8 +51,9 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderRadius: 8,
           "& .MuiOutlinedInput-root": {
+            borderRadius: 8,
+
             "& fieldset": {
               borderColor: "#757575",
             },
@@ -67,6 +68,7 @@ const theme = createTheme({
         },
       },
     },
+
 
     MuiSwitch: {
       styleOverrides: {
