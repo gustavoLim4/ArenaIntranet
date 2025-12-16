@@ -26,6 +26,7 @@ interface TableContainerProps {
     tableIConSx?: SxProps<Theme>;
     LastColumnSx?: SxProps<Theme>;
     containerSx?: SxProps<Theme>;
+    onRowClick?: (row: TableRowType) => void;
 }
 
 export const MuiTableContainer: React.FC<TableContainerProps> = ({
@@ -37,6 +38,7 @@ export const MuiTableContainer: React.FC<TableContainerProps> = ({
     tableIConSx,
     LastColumnSx,
     containerSx,
+    onRowClick,
 }) => {
     const theme = useTheme();
 
@@ -81,8 +83,12 @@ export const MuiTableContainer: React.FC<TableContainerProps> = ({
                     {rows.map((row, i) => (
                         <TableRow
                             key={i}
+                            onClick={() => onRowClick?.(row)}
                             sx={{
-                                "&:hover": { backgroundColor: theme.palette.action.hover },
+                                cursor: onRowClick ? "pointer" : "default",
+                                "&:hover": {
+                                    backgroundColor: theme.palette.action.hover,
+                                }
                             }}
                         >
                             {columns.map((col) => (
@@ -112,7 +118,10 @@ export const MuiTableContainer: React.FC<TableContainerProps> = ({
                                         <IconButton
                                             key={idx}
                                             size="small"
-                                            onClick={() => action.onClick(row)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                action.onClick(row);
+                                            }}
                                             sx={{
                                                 backgroundColor: theme.palette.primary.light,
                                                 "&:hover": {
@@ -131,6 +140,6 @@ export const MuiTableContainer: React.FC<TableContainerProps> = ({
                     ))}
                 </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer >
     );
 };
