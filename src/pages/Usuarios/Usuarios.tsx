@@ -1,23 +1,24 @@
-import { Box, Button, Typography, useMediaQuery } from "@mui/material"
-import SearchInput from "../../components/SearchInput/SearchInput"
-import theme from "../../theme"
+import { useMemo, useState } from "react";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import SearchInput from "../../components/SearchInput/SearchInput";
+import theme from "../../theme";
 import { MuiTableContainer } from "../../components/Table/MuiTable";
-import { DADOS_EXIBICAO_USARIOS, USUARIOS_MOCK } from "./util/constants";
+import { UsuarioDrawer } from "./components/UsuarioDrawer/UsuarioDrawer";
+import { DADOS_EXIBICAO_USARIOS, USUARIOS_MOCK, } from "./util/constants";
 import { containerTableResposeStyles, dadosNãoEncostrado, scrollResponse, TelasStyles } from "../../styles/styleresposecomun.styles";
-import { useMemo, useState } from "react";
-import { UsuarioDrawer } from "./components/UsuarioDrawer";
-import type { Usuario } from "./types/types";
+import type { Usuario, UsuarioForm } from "./types/types";
+import { gerarAvatar } from "./components/Avatar/avatar";
 
 export const Usuarios = () => {
-  const colunas = DADOS_EXIBICAO_USARIOS;
+  const [rows, setRows] = useState<Usuario[]>(USUARIOS_MOCK);
+  const [search, setSearch] = useState("");
   const [openDrawer, setOpenDrawer] = useState(false);
   const [modo, setModo] = useState<"criar" | "editar">("criar");
-  const [usuarioSelecionado, setUsuarioSelecionado] = useState<any>(null);
-  const [search, setSearch] = useState("");
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState<Usuario | null>(null);
+
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [rows, setRows] = useState<Usuario[]>(USUARIOS_MOCK);
 
   const abrirCriar = () => {
     setModo("criar");
@@ -25,37 +26,47 @@ export const Usuarios = () => {
     setOpenDrawer(true);
   };
 
-  const abrirEditar = (row: any) => {
+  const abrirEditar = (row: Usuario) => {
     setModo("editar");
     setUsuarioSelecionado(row);
     setOpenDrawer(true);
   };
 
-  const handleSave = (data: any) => {
+  const handleSave = (data: UsuarioForm) => {
     if (modo === "criar") {
-      setRows((prev) => [...prev, data]);
+      const novoUsuario: Usuario = {
+        ...data,
+        id: Date.now(),
+        foto: gerarAvatar(data.nome),
+      };
+      setRows((prev) => [...prev, novoUsuario]);
     } else {
       setRows((prev) =>
-        prev.map((u) =>
-          u.usuario === usuarioSelecionado.usuario ? data : u
-        )
+        prev.map((u) => {
+          if (u.id === usuarioSelecionado?.id) {
+            return {
+              ...u,
+              ...data,
+              foto: gerarAvatar(data.nome)
+            } as Usuario;
+          }
+          return u;
+        })
       );
     }
+    setOpenDrawer(false);
   };
 
-  const filteredRows = useMemo(() => {
-    if (!search.trim()) return USUARIOS_MOCK;
+  const filteredRows = useMemo<Usuario[]>(() => {
+    const termo = search.toLowerCase().trim();
+    if (!termo) return rows;
 
-    return USUARIOS_MOCK.filter((usuario: Usuario) =>
-      usuario.nome.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [search]);
+    return rows.filter((u) => u.nome.toLowerCase().includes(termo));
+  }, [search, rows]);
 
   const actions = [
     {
-      icon: (
-        <EditOutlinedIcon sx={{ fontSize: 25, color: theme.palette.primary.main }} />
-      ),
+      icon: <EditOutlinedIcon sx={{ fontSize: 26, color: theme.palette.primary.main }} />,
       label: "Editar",
       onClick: (row: Usuario) => abrirEditar(row),
     },
@@ -77,13 +88,8 @@ export const Usuarios = () => {
             <Button
               onClick={abrirCriar}
               sx={{
-                minWidth: "48px",
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                backgroundColor: "primary.main",
-                color: "#fff",
-                padding: 0,
+                minWidth: "48px", width: "48px", height: "48px",
+                borderRadius: "50%", backgroundColor: "primary.main", color: "#fff",
                 "&:hover": { backgroundColor: "primary.dark" },
               }}
             >
@@ -96,6 +102,7 @@ export const Usuarios = () => {
           )}
         </Box>
       </Box>
+
       <Box sx={containerTableResposeStyles}>
         {filteredRows.length === 0 ? (
           <Typography sx={{ ...dadosNãoEncostrado }}>
@@ -103,16 +110,20 @@ export const Usuarios = () => {
           </Typography>
         ) : (
           <MuiTableContainer
-            columns={colunas}
+            columns={DADOS_EXIBICAO_USARIOS}
             rows={filteredRows}
             lastColumn="Editar"
             actions={actions}
+            tableHeadSx={{ minWidth: 100 }}
             LastColumnSx={{ textAlign: "end" }}
             tableIConSx={{ justifyContent: "end" }}
-            containerSx={{ ...scrollResponse(theme) }}
+            containerSx={{
+              ...scrollResponse(theme),
+            }}
           />
         )}
       </Box>
+
       <UsuarioDrawer
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
@@ -121,5 +132,5 @@ export const Usuarios = () => {
         onSave={handleSave}
       />
     </Box>
-  )
-}
+  );
+};

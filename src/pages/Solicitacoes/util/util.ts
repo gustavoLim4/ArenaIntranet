@@ -8,15 +8,3 @@ export const TIPOS_CHAMADO_TI: string[] = [
   "Outro problema",
   "Sugestões",
 ];
-
-export const TIPOS_CHAMADO_RH: string[] = [
-  "Requisição de Uniforme e EPI",
-  "Convênio Médico e Odontológico",
-  "Folha de Pagamento",
-  "Vale Transporte",
-  "Licença médica",
-  "Envio de Atestado Médico",
-  "Banco de horas",
-  "Outro problema",
-  "Sugestões",
-];

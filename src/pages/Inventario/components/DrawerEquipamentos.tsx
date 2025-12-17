@@ -22,8 +22,8 @@ export const EquipamentoDrawer = ({
     const [form, setForm] = useState<EquipamentoForm>({
         categoria: "",
         equipamento: "",
-        qtdMarcas: "",
-        quantidade: "",
+        qtdMarcas: 0,
+        quantidade: 0,
     });
 
     useEffect(() => {
@@ -31,8 +31,8 @@ export const EquipamentoDrawer = ({
             setForm({
                 categoria: "",
                 equipamento: "",
-                qtdMarcas: "",
-                quantidade: "",
+                qtdMarcas: 0,
+                quantidade: 0,
             });
             setLoading(false);
         }
@@ -49,30 +49,10 @@ export const EquipamentoDrawer = ({
     };
 
     return (
-        <Drawer
-            anchor="right"
-            open={open}
-            onClose={onClose}
-            sx={{ zIndex: theme.zIndex.drawer + 2 }}
-        >
-            <Box
-                sx={{
-                    width: { xs: 330, md: 450 },
-                    height: "100%",
-                    bgcolor: theme.palette.background.paper,
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
+        <Drawer anchor="right" open={open} onClose={onClose} sx={{ zIndex: theme.zIndex.drawer + 2 }}>
+            <Box sx={{ width: { xs: 330, md: 450 }, height: "100%", bgcolor: theme.palette.background.paper, display: "flex", flexDirection: "column", }} >
                 {/* Header */}
-                <Typography
-                    variant="h6"
-                    sx={{
-                        p: 2,
-                        bgcolor: theme.palette.primary.main,
-                        color: theme.palette.background.paper,
-                    }}
-                >
+                <Typography variant="h6" sx={{ p: 2, bgcolor: theme.palette.primary.main, color: theme.palette.background.paper, }}>
                     Cadastrar Equipamento
                 </Typography>
 

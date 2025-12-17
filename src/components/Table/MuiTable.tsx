@@ -61,8 +61,8 @@ export const MuiTableContainer: React.FC<TableContainerProps> = ({
                                     fontWeight: 600,
                                     fontSize: 14,
                                     whiteSpace: "nowrap",
-                                    ...tableHeadSx,
                                     minWidth: col.width,
+                                    ...tableHeadSx,
                                 }}
                             >
                                 {col.label}
@@ -96,7 +96,7 @@ export const MuiTableContainer: React.FC<TableContainerProps> = ({
                                     key={col.key}
                                     sx={{
                                         fontSize: 14,
-                                        minWidth: col.width || 120,
+                                        minWidth: col.width || 60,
                                         whiteSpace: "nowrap",
                                     }}
                                 >

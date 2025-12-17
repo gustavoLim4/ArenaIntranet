@@ -41,7 +41,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
         backgroundColor: active ? theme.palette.secondary.main : "#fff",
         transition: "all 0.2s ease",
         marginBottom: "8px",
-        minHeight: small ? "20px" : "50px",
+        minHeight: small ? "20px" : "47px",
       }}
     >
       <Box

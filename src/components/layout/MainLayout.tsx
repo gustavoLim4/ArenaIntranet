@@ -8,6 +8,12 @@ import HomeIcon from '@mui/icons-material/Home';
 import GroupIcon from '@mui/icons-material/Group';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import PolicyIcon from '@mui/icons-material/Policy';
+
 import theme from "../../theme";
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavButton } from "./NavButton";
@@ -39,6 +45,26 @@ export default function MainLayout() {
       path: "/home",
     },
     {
+      text: "Treinamentos",
+      icon: <GroupIcon />,
+      path: "/treinamentos",
+    },
+    {
+      text: "Conhecimentos",
+      icon: <PsychologyIcon />,
+      path: "/conhecimentos",
+    },
+    {
+      text: "Canal ouvidoria",
+      icon: <PermPhoneMsgIcon />,
+      path: "/canalouvidoria",
+    },
+    {
+      text: "Comunicado geral",
+      icon: <ConnectWithoutContactIcon />,
+      path: "/comunicadogeral",
+    },
+    {
       text: "Solicitações",
       icon: <PermContactCalendarIcon />,
       path: "/solicitacoes",
@@ -54,10 +80,21 @@ export default function MainLayout() {
       path: "/inventario",
     },
     {
-      text: "Usuários",
+      text: "Colaboradores",
       icon: <GroupIcon />,
-      path: "/usuarios",
+      path: "/colaboradores",
     },
+    {
+      text: "Manual cultura",
+      icon: <AutoStoriesIcon />,
+      path: "/manualcultura",
+    },
+    {
+      text: "Politicas",
+      icon: <PolicyIcon />,
+      path: "/politicas",
+    },
+
   ];
 
   const currentTitle =
@@ -112,7 +149,7 @@ export default function MainLayout() {
           ModalProps={{ keepMounted: true }}
           sx={{
             "& .MuiDrawer-paper": {
-              width: 215,
+              width: 235,
               backgroundColor: theme.palette.primary.main,
               color: theme.palette.primary.contrastText,
             },

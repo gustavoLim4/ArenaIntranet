@@ -16,6 +16,7 @@ import type { TableRow } from "../../../components/Table/types";
 import SearchInput from "../../../components/SearchInput/SearchInput";
 import { COLUNAS_MODELOS_EQUIPAMENTO } from "../util/utils";
 import theme from "../../../theme";
+import { scrollResponse } from "../../../styles/styleresposecomun.styles";
 
 
 interface ModalModelosEquipamentoProps {
@@ -93,9 +94,15 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
         decrementar: (
             <IconButton
                 size="small"
-                sx={{ bgcolor: theme.palette.primary.main, color: "#fff" }}
                 disabled={item.quantidade <= 0}
                 onClick={() => handleDecrement(index)}
+                sx={{
+                    bgcolor: theme.palette.primary.main,
+                    color: "#fff",
+                    "&:hover": {
+                        bgcolor: theme.palette.primary.dark,
+                    },
+                }}
             >
                 <RemoveIcon fontSize="small" />
             </IconButton>
@@ -104,8 +111,14 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
         incrementar: (
             <IconButton
                 size="small"
-                sx={{ bgcolor: theme.palette.primary.main, color: "#fff" }}
                 onClick={() => handleIncrement(index)}
+                sx={{
+                    bgcolor: theme.palette.primary.main,
+                    color: "#fff",
+                    "&:hover": {
+                        bgcolor: theme.palette.primary.dark,
+                    },
+                }}
             >
                 <AddIcon fontSize="small" />
             </IconButton>
@@ -113,6 +126,7 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
 
         quantidade: item.quantidade,
     }));
+
     const actions = [
         {
             icon: (
@@ -129,12 +143,12 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
         <Modal open={open} onClose={onClose}>
             <Box sx={{ width: { xs: "95%", md: 700 }, bgcolor: "background.paper", borderRadius: 2, boxShadow: 24, p: 2.5, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", }}>
                 {/* Header */}
-                <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
                     <Typography fontWeight={600}>
                         Modelos — {equipamento}
                     </Typography>
 
-                    <Typography fontSize={14} color="text.secondary">
+                    <Typography fontSize={16} color="text.secondary">
                         Quantidade total: <strong>{quantidadeTotal}</strong>
                     </Typography>
                 </Box>
@@ -156,6 +170,9 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
                     actions={actions}
                     LastColumnSx={{ textAlign: "end" }}
                     tableIConSx={{ justifyContent: "end" }}
+                    containerSx={{
+                        ...scrollResponse(theme),
+                    }}
                 />
 
                 <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1, }}>
