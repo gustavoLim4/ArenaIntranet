@@ -29,7 +29,7 @@ export const ModalAtendimento = ({ open, onClose, atendimento }: Props) => {
 
     return (
         <Modal open={open} onClose={onClose}>
-            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", p: 4, borderRadius: 2, width: 700, display: "flex", flexDirection: "column", gap: 2, }} >
+            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", p: 4, borderRadius: 2, width: { xs: 350, sm: 500, md: 700 }, display: "flex", flexDirection: "column", gap: 2, }} >
                 <Box sx={{ display: "flex", justifyContent: "space-between", }}>
                     <Typography variant="h6" color="primary.main">
                         Chamado
@@ -67,13 +67,13 @@ export const ModalAtendimento = ({ open, onClose, atendimento }: Props) => {
                     label="Mensagem"
                     multiline
                     minRows={3}
-                    sx={{ color: "primary.main", mb: 2 }}
+                    sx={{ color: "primary.main", mb: { xs: .5, sm: 2, md: 2 } }}
                     value={atendimento.mensagem}
                     InputProps={{
                         readOnly: true,
                     }}
                 />
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 2, }}   >
+                <Box sx={{ display: { xs: "block", sm: "flex", md: "flex" }, justifyContent: "space-between", alignItems: "center", gap: 2, }}   >
                     <FileUploadButton
                         multiple
                         onChange={(files) => {
@@ -81,7 +81,7 @@ export const ModalAtendimento = ({ open, onClose, atendimento }: Props) => {
                         }}
                     />
 
-                    <Box sx={{ display: "flex", gap: 2 }}>
+                    <Box sx={{ display: "flex", gap: 2, mt: { xs: 2, sm: 0, md: 0 } }}>
                         <Select
                             size="small"
                             value={statusAtual}

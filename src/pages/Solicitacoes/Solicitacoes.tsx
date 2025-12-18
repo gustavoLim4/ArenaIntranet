@@ -1,14 +1,16 @@
 import { Box, Button } from "@mui/material";
 import CallIcon from "@mui/icons-material/Call";
 import AddIcon from "@mui/icons-material/Add";
-import { InfoGridItem } from "../../components/InfoGridItem/InfoGridItem";
 import theme from "../../theme";
 import { useState } from "react";
 import { SOLICITACOES_MOCK } from "./util/constats";
 import { TelasStyles } from "../../styles/styleresposecomun.styles";
-import NovoChamadoModal from "./components/newChamado";
+import { InfoGridItem } from "../../components/InfoGridItem/InfoGridItem";
 import type { Atendimento } from "../Atendimentos/types/types";
+import { NovoChamadoModal } from "./components/newChamado";
 import { ModaDetails } from "./components/ModaDetails";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 const LIMITE_INICIAL = 6;
 
@@ -68,12 +70,13 @@ export const Solicitacoes = () => {
             variant="contained"
             sx={{ bgcolor: theme.palette.primary.main }}
             onClick={handleToggle}
+            endIcon={mostrarTudo ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           >
             {mostrarTudo ? "Carregar menos" : "Carregar mais"}
           </Button>
         </Box>
       )}
-      
+
       <NovoChamadoModal
         open={openNovo}
         onClose={() => setOpenNovo(false)}

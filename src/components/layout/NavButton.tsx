@@ -41,7 +41,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
         backgroundColor: active ? theme.palette.secondary.main : "#fff",
         transition: "all 0.2s ease",
         marginBottom: "8px",
-        minHeight: small ? "20px" : "47px",
+        minHeight: small ? "10px" : "40px",
       }}
     >
       <Box
@@ -65,6 +65,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
                   ? theme.palette.background.paper
                   : theme.palette.text.primary,
                 fontWeight: 600,
+                fontSize: 12
               }}
             >
               {label}

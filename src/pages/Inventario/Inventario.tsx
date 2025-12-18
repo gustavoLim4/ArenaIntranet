@@ -26,7 +26,7 @@ export const Inventario = () => {
   return (
     <Box sx={{ ...TelasStyles }}>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 4, }} >
-        <Box sx={{ width: { xs: "75%", md: "60%" } }}>
+        <Box sx={{ width: { xs: "75%",sm: "55%", md: "60%" } }}>
           <SearchInput variant="rightIcon" placeholder="Buscar por nome" />
         </Box>
 

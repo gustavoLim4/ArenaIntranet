@@ -4,7 +4,7 @@ import { TelasStyles } from '../../styles/styleresposecomun.styles'
 export const Conhecimentos = () => {
   return (
     <Box sx={{...TelasStyles}}>
-      <Typography fontWeight={700} variant='h5' mb={1}>Conhecimentos</Typography>
+      <Typography fontWeight={700} variant='h5' mb={1}>Base conhecimentos</Typography>
       <Typography>Tela em desenvolvimento aguarde para novas atualizações...</Typography>
     </Box>
   )

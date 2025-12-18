@@ -141,7 +141,7 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
 
     return (
         <Modal open={open} onClose={onClose}>
-            <Box sx={{ width: { xs: "95%", md: 700 }, bgcolor: "background.paper", borderRadius: 2, boxShadow: 24, p: 2.5, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", }}>
+            <Box sx={{ width: { xs: "95%",sm: 630, md: 700 }, bgcolor: "background.paper", borderRadius: 2, boxShadow: 24, p: 2.5, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", }}>
                 {/* Header */}
                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
                     <Typography fontWeight={600}>

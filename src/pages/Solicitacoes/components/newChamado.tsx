@@ -9,7 +9,7 @@ interface NovoChamadoModalProps {
 }
 
 
-const NovoChamadoModal: React.FC<NovoChamadoModalProps> = ({ open, onClose, }) => {
+export const NovoChamadoModal: React.FC<NovoChamadoModalProps> = ({ open, onClose, }) => {
     const [tipo, setTipo] = useState<string>("");
     const [descricao, setDescricao] = useState<string>("");
 
@@ -82,4 +82,3 @@ const NovoChamadoModal: React.FC<NovoChamadoModalProps> = ({ open, onClose, }) =
     );
 };
 
-export default NovoChamadoModal;

@@ -8,6 +8,8 @@ import type { Atendimento, FiltroStatus } from "./types/types";
 import { ATENDIMENTOS_MOCK } from "./util/constast";
 import theme from "../../theme";
 import { dadosNãoEncostrado, TelasStyles } from "../../styles/styleresposecomun.styles";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 
 export const Atendimentos = () => {
@@ -106,6 +108,7 @@ export const Atendimentos = () => {
               variant="contained"
               sx={{ bgcolor: theme.palette.primary.main }}
               onClick={handleToggle}
+              endIcon={mostrarTudo ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             >
               {mostrarTudo ? "Carregar menos" : "Carregar mais"}
             </Button>
