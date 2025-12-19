@@ -1,5 +1,5 @@
 import { Box, Typography, Avatar, Paper, Stack, useTheme, Divider } from '@mui/material';
-import { TelasStyles } from '../../styles/styleresposecomun.styles';
+import { TelasStyles } from '../../styles/stylesComun.styles';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { ORGANOGRAMA_DATA } from './util/util';
 

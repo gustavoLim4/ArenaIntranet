@@ -3,19 +3,13 @@ import { Box, Typography, Button, Drawer, TextField, useTheme, MenuItem, } from 
 import type { EquipamentoForm } from "../types/inventario.type";
 import { CATEGORIAS_MOCK, DADOS_EXIBICAO_INVENTARIO_FORM } from "../util/utils";
 
-
-
 interface EquipamentoDrawerProps {
     open: boolean;
     onClose: () => void;
     onSave: (data: EquipamentoForm) => void;
 }
 
-export const EquipamentoDrawer = ({
-    open,
-    onClose,
-    onSave,
-}: EquipamentoDrawerProps) => {
+export const EquipamentoDrawer = ({ open, onClose, onSave, }: EquipamentoDrawerProps) => {
     const theme = useTheme();
     const [loading, setLoading] = useState(false);
 
@@ -51,7 +45,6 @@ export const EquipamentoDrawer = ({
     return (
         <Drawer anchor="right" open={open} onClose={onClose} sx={{ zIndex: theme.zIndex.drawer + 2 }}>
             <Box sx={{ width: { xs: 330, md: 450 }, height: "100%", bgcolor: theme.palette.background.paper, display: "flex", flexDirection: "column", }} >
-                {/* Header */}
                 <Typography variant="h6" sx={{ p: 2, bgcolor: theme.palette.primary.main, color: theme.palette.background.paper, }}>
                     Cadastrar Equipamento
                 </Typography>

@@ -6,6 +6,7 @@ import {
     IconButton,
     Button,
     Divider,
+    useMediaQuery,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -16,7 +17,7 @@ import type { TableRow } from "../../../components/Table/types";
 import SearchInput from "../../../components/SearchInput/SearchInput";
 import { COLUNAS_MODELOS_EQUIPAMENTO } from "../util/utils";
 import theme from "../../../theme";
-import { scrollResponse } from "../../../styles/styleresposecomun.styles";
+import { botaoMobileMais, scrollResponse } from "../../../styles/styleresposecomun.styles";
 
 
 interface ModalModelosEquipamentoProps {
@@ -31,6 +32,7 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
     const [search, setSearch] = useState("");
     const [modelosState, setModelosState] = useState<ModeloEquipamento[]>([]);
     const [loading, setLoading] = useState(false);
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     useEffect(() => {
         if (open) {
@@ -67,10 +69,6 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
                     : item
             )
         );
-    };
-
-    const handleAddModelo = () => {
-        console.log("Abrir drawer/modal para novo modelo");
     };
 
     const handleSave = () => {
@@ -141,26 +139,34 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
 
     return (
         <Modal open={open} onClose={onClose}>
-            <Box sx={{ width: { xs: "95%",sm: 630, md: 700 }, bgcolor: "background.paper", borderRadius: 2, boxShadow: 24, p: 2.5, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", }}>
-                {/* Header */}
+            <Box sx={{ width: { xs: "90%", sm: 630, md: 700 }, bgcolor: "background.paper", borderRadius: 2, boxShadow: 24, p: 2.5, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", }}>
+               
                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
                     <Typography fontWeight={600}>
                         Modelos — {equipamento}
                     </Typography>
 
                     <Typography fontSize={16} color="text.secondary">
-                        Quantidade total: <strong>{quantidadeTotal}</strong>
+                        Total: <strong>{quantidadeTotal}</strong>
                     </Typography>
                 </Box>
 
                 <Divider sx={{ mb: 3 }} />
 
                 <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
-                    <SearchInput placeholder="Buscar modelo" value={search} onChange={(e) => setSearch(e.target.value)} />
+                    <SearchInput placeholder="Buscar modelo..." value={search} onChange={(e) => setSearch(e.target.value)} />
 
-                    <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddModelo} >
-                        Novo
-                    </Button>
+                    <Box>
+                        {isMobile ? (
+                            <Button sx={{ ...botaoMobileMais }}>
+                                <AddIcon />
+                            </Button>
+                        ) : (
+                            <Button startIcon={<AddIcon />} variant="contained">
+                                Novo usuário
+                            </Button>
+                        )}
+                    </Box>
                 </Box>
 
                 <MuiTableContainer

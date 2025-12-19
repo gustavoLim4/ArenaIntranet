@@ -16,7 +16,7 @@ export const ModaDetails = ({ open, onClose, atendimento }: Props) => {
 
     return (
         <Modal open={open} onClose={onClose}>
-            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", p: 4, borderRadius: 2, width: 700, display: "flex", flexDirection: "column", gap: 2, }} >
+            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", p: 4, borderRadius: 2, width: { xs: 350, sm: 700 }, display: "flex", flexDirection: "column", gap: 2, }} >
                 <Box sx={{ display: "flex", justifyContent: "space-between", }}>
                     <Typography variant="h6" color="primary.main">
                         Chamado
@@ -24,7 +24,6 @@ export const ModaDetails = ({ open, onClose, atendimento }: Props) => {
                     <Typography variant="h6" color="secondary.main">
                         #{atendimento.numero}
                     </Typography>
-
                 </Box>
                 <Box sx={{ display: "flex", gap: 1, borderBottom: "1px solid", width: 300, pb: 1, mb: 2 }}>
                     <Typography color="primary.main">Assunto :</Typography>
@@ -53,7 +52,6 @@ export const ModaDetails = ({ open, onClose, atendimento }: Props) => {
                 <TextField
                     label="Mensagem"
                     multiline
-                    
                     minRows={3}
                     value={atendimento.mensagem ?? ""}
                     disabled

@@ -14,3 +14,28 @@ export const getYoutubeThumbnail = (url: string) => {
 
     return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : "";
 };
+
+
+export const calcularTempoEmpresa = (dataAdmissao: string): string => {
+    if (!dataAdmissao) return "-";
+
+    const [dia, mes, ano] = dataAdmissao.split("/").map(Number);
+
+    const admissao = new Date(ano, mes - 1, dia);
+    const hoje = new Date();
+
+    let anos = hoje.getFullYear() - admissao.getFullYear();
+    let meses = hoje.getMonth() - admissao.getMonth();
+
+    if (
+        meses < 0 ||
+        (meses === 0 && hoje.getDate() < admissao.getDate())
+    ) {
+        anos--;
+        meses += 12;
+    }
+
+    return anos > 0
+        ? `${anos} ano${anos > 1 ? "s" : ""}`
+        : `${meses} m${meses > 1 ? "eses" : "ês"}`;
+}

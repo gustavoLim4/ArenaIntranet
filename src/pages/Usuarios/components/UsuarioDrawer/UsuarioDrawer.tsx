@@ -46,7 +46,10 @@ export const UsuarioDrawer = ({
         setor: "",
         cargo: "",
         senha: "",
+        telefone: "",
+        email: "",
         dataNasc: "",
+        dataAdmissao: "",
         usuario: "",
     });
 
@@ -61,6 +64,9 @@ export const UsuarioDrawer = ({
                 empresa: "",
                 setor: "",
                 dataNasc: "",
+                telefone: "",
+                email: "",
+                dataAdmissao: "",
                 cargo: "",
                 senha: "",
                 usuario: "",
@@ -111,6 +117,7 @@ export const UsuarioDrawer = ({
                         const isEmpresa = campo.key === "empresa";
                         const isFoto = campo.key === "foto";
                         const isDataNasc = campo.key === "dataNasc";
+                        const isDataAdmissao = campo.key === "dataAdmissao";
 
 
                         if (isFoto) {
@@ -144,21 +151,20 @@ export const UsuarioDrawer = ({
                                 key={campo.key}
                                 label={campo.label}
                                 select={isEmpresa}
-
                                 value={form[campo.key as keyof UsuarioForm] || ""}
                                 onChange={(e) => {
-                                    const value = isDataNasc
-                                        ? maskDataNascimento(e.target.value)
-                                        : e.target.value;
+                                    const value =
+                                        isDataNasc || isDataAdmissao
+                                            ? maskDataNascimento(e.target.value)
+                                            : e.target.value;
 
                                     handleChange(campo.key as keyof UsuarioForm, value);
                                 }}
-                                placeholder={isDataNasc ? "DD/MM/AAAA" : undefined}
-                                inputProps={isDataNasc ? { maxLength: 10 } : undefined}
+                                placeholder={isDataNasc || isDataAdmissao ? "DD/MM/AAAA" : undefined}
+                                inputProps={isDataNasc || isDataAdmissao ? { maxLength: 10 } : undefined}
                                 fullWidth
                                 sx={{ mb: 2 }}
                             >
-
                                 {isEmpresa &&
                                     EMPRESAS_MOCK.map((empresa) => (
                                         <MenuItem key={empresa} value={empresa}>
@@ -166,7 +172,6 @@ export const UsuarioDrawer = ({
                                         </MenuItem>
                                     ))}
                             </TextField>
-
                         );
                     })}
                     {modo === "criar" && (

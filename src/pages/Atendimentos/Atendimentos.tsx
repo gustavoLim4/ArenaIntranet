@@ -7,7 +7,7 @@ import { ModalAtendimento } from "./Modal/AntedimentoModal";
 import type { Atendimento, FiltroStatus } from "./types/types";
 import { ATENDIMENTOS_MOCK } from "./util/constast";
 import theme from "../../theme";
-import { dadosNãoEncostrado, TelasStyles } from "../../styles/styleresposecomun.styles";
+import { dadosNãoEncostrado, TelasStyles } from "../../styles/stylesComun.styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 

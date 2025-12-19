@@ -44,7 +44,7 @@ export const NovoChamadoModal: React.FC<NovoChamadoModalProps> = ({ open, onClos
                         value={tipo}
                         label="Assunto"
                         onChange={(e) => setTipo(e.target.value)}
-                        sx={{width: {xs: "100%", md: 350}}}
+                        sx={{ width: { xs: "100%", md: 350 } }}
                     >
                         {TIPOS_CHAMADO_TI.map((item) => (
                             <MenuItem key={item} value={item}>

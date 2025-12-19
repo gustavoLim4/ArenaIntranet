@@ -1,5 +1,5 @@
 import { Box, Typography, Card, CardContent, Chip, Stack, Divider, useMediaQuery, useTheme, Button, IconButton } from '@mui/material';
-import { TelasStyles } from '../../styles/styleresposecomun.styles';
+import { TelasStyles } from '../../styles/stylesComun.styles';
 import { COMUNICADOS_MOCK } from './util/util';
 import { useState } from 'react';
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -8,6 +8,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { ComunicadoDrawer } from './components/ComunicadoDrawer';
 import type { ComunicadoForm } from './types/types';
 import { useToast } from '../../hooks/useToast.hook';
+import { botaoMobileMais } from '../../styles/styleresposecomun.styles';
 
 
 
@@ -46,22 +47,11 @@ export const ComunicadoGeral = () => {
 
                 <Box>
                     {isMobile ? (
-                        <Button
-                            onClick={() => setOpenDrawer(true)}
-                            sx={{
-                                minWidth: "48px", width: "48px", height: "48px",
-                                borderRadius: "50%", backgroundColor: "primary.main", color: "#fff",
-                                "&:hover": { backgroundColor: "primary.dark" },
-                            }}
-                        >
+                        <Button onClick={() => setOpenDrawer(true)} sx={{ ...botaoMobileMais }}>
                             <AddIcon />
                         </Button>
                     ) : (
-                        <Button
-                            startIcon={<AddIcon />}
-                            onClick={() => setOpenDrawer(true)}
-                            variant="contained"
-                        >
+                        <Button startIcon={<AddIcon />} onClick={() => setOpenDrawer(true)} variant="contained"                >
                             Novo comunicado
                         </Button>
                     )}
@@ -102,7 +92,7 @@ export const ComunicadoGeral = () => {
                                         <Typography variant="overline" color="primary.main" fontWeight={700}>
                                             {item.categoria}
                                         </Typography>
-                                        <Typography variant="h6" fontWeight={600} sx={{ lineHeight: 1.2 }}>
+                                        <Typography variant="h6" fontWeight={600} sx={{ lineHeight: 1.2, fontSize: {xs: 17, sm: 24} }}>
                                             {item.titulo}
                                         </Typography>
                                     </Box>

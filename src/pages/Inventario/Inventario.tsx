@@ -2,7 +2,7 @@ import { Box, Button, useMediaQuery } from "@mui/material";
 import SearchInput from "../../components/SearchInput/SearchInput";
 import theme from "../../theme";
 import AddIcon from "@mui/icons-material/Add";
-import { TelasStyles } from "../../styles/styleresposecomun.styles";
+import { TelasStyles } from "../../styles/stylesComun.styles";
 import { MuiTableContainer } from "../../components/Table/MuiTable";
 import { DADOS_EXIBICAO_INVENTARIO, MODELOS_POR_EQUIPAMENTO } from "./util/utils";
 import { mapDadosInventario } from "./util/constants";
@@ -10,13 +10,13 @@ import { useState } from "react";
 import { EquipamentoDrawer } from "./components/DrawerEquipamentos";
 import type { EquipamentoForm } from "./types/inventario.type";
 import { ModalModelosEquipamento } from "./components/ModalModelosEquipamento";
+import { botaoMobileMais } from "../../styles/styleresposecomun.styles";
 
 
 export const Inventario = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [equipamentoSelecionado, setEquipamentoSelecionado] =
-    useState<string | null>(null);
+  const [equipamentoSelecionado, setEquipamentoSelecionado] = useState<string | null>(null);
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleSaveEquipamento = (data: EquipamentoForm) => {
@@ -26,33 +26,17 @@ export const Inventario = () => {
   return (
     <Box sx={{ ...TelasStyles }}>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 4, }} >
-        <Box sx={{ width: { xs: "75%",sm: "55%", md: "60%" } }}>
+        <Box sx={{ width: { xs: "75%", sm: "55%", md: "60%" } }}>
           <SearchInput variant="rightIcon" placeholder="Buscar por nome" />
         </Box>
 
         <Box>
           {isMobile ? (
-            <Button
-              onClick={() => setOpenDrawer(true)}
-              sx={{
-                minWidth: "48px",
-                width: "48px",
-                height: "48px",
-                borderRadius: "50%",
-                backgroundColor: "primary.main",
-                color: "#fff",
-                padding: 0,
-                "&:hover": { backgroundColor: "primary.dark" },
-              }}
-            >
+            <Button onClick={() => setOpenDrawer(true)} sx={{ ...botaoMobileMais }} >
               <AddIcon />
             </Button>
           ) : (
-            <Button
-              onClick={() => setOpenDrawer(true)}
-              startIcon={<AddIcon />}
-              variant="contained"
-            >
+            <Button onClick={() => setOpenDrawer(true)} startIcon={<AddIcon />} variant="contained" >
               Adicionar novo equipamento
             </Button>
           )}

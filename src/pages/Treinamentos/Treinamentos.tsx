@@ -1,5 +1,5 @@
 import { Box, Typography, Card, CardMedia, CardContent, Button, useTheme, useMediaQuery, Avatar, Stack } from '@mui/material';
-import { TelasStyles } from '../../styles/styleresposecomun.styles';
+import { TelasStyles } from '../../styles/stylesComun.styles';
 import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
@@ -8,6 +8,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { TREINAMENTOS_MOCK } from './util/util';
 import type { Treinamento } from './types/types';
 import { TreinamentoDrawer } from './components/TreinamentoDrawer';
+import { botaoMobileMais } from '../../styles/styleresposecomun.styles';
 
 export const Treinamentos = () => {
   const theme = useTheme();
@@ -41,7 +42,7 @@ export const Treinamentos = () => {
         </Box>
         <Box>
           {isMobile ? (
-            <Button onClick={() => setOpenDrawer(true)} sx={{ minWidth: "48px", width: "48px", height: "48px", borderRadius: "50%", backgroundColor: "primary.main", color: "#fff", "&:hover": { backgroundColor: "primary.dark" }, }}>
+            <Button onClick={() => setOpenDrawer(true)} sx={{ ...botaoMobileMais }}>
               <AddIcon />
             </Button>
           ) : (

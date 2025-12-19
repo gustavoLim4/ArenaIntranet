@@ -7,9 +7,12 @@ import theme from "../../theme";
 import { MuiTableContainer } from "../../components/Table/MuiTable";
 import { UsuarioDrawer } from "./components/UsuarioDrawer/UsuarioDrawer";
 import { DADOS_EXIBICAO_USARIOS, USUARIOS_MOCK, } from "./util/constants";
-import { containerTableResposeStyles, dadosNãoEncostrado, scrollResponse, TelasStyles } from "../../styles/styleresposecomun.styles";
+import { botaoMobileMais, containerTableResposeStyles, scrollResponse } from "../../styles/styleresposecomun.styles";
 import type { Usuario, UsuarioForm } from "./types/types";
 import { gerarAvatar } from "./components/Avatar/avatar";
+import { dadosNãoEncostrado, TelasStyles } from "../../styles/stylesComun.styles";
+import { useToast } from "../../hooks/useToast.hook";
+import { calcularTempoEmpresa } from "../../util/masc";
 
 export const Usuarios = () => {
   const [rows, setRows] = useState<Usuario[]>(USUARIOS_MOCK);
@@ -17,7 +20,7 @@ export const Usuarios = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [modo, setModo] = useState<"criar" | "editar">("criar");
   const [usuarioSelecionado, setUsuarioSelecionado] = useState<Usuario | null>(null);
-
+  const { showToast } = useToast();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const abrirCriar = () => {
@@ -54,15 +57,23 @@ export const Usuarios = () => {
         })
       );
     }
+    showToast("Colaborador criado com sucesso", "success")
     setOpenDrawer(false);
   };
-
   const filteredRows = useMemo<Usuario[]>(() => {
     const termo = search.toLowerCase().trim();
     if (!termo) return rows;
 
     return rows.filter((u) => u.nome.toLowerCase().includes(termo));
   }, [search, rows]);
+
+  const rowsComTempoEmpresa = useMemo(() => {
+    return filteredRows.map((u) => ({
+      ...u,
+      tempoEmpresa: calcularTempoEmpresa(u.dataAdmissao),
+    }));
+  }, [filteredRows]);
+
 
   const actions = [
     {
@@ -85,14 +96,7 @@ export const Usuarios = () => {
         </Box>
         <Box>
           {isMobile ? (
-            <Button
-              onClick={abrirCriar}
-              sx={{
-                minWidth: "48px", width: "48px", height: "48px",
-                borderRadius: "50%", backgroundColor: "primary.main", color: "#fff",
-                "&:hover": { backgroundColor: "primary.dark" },
-              }}
-            >
+            <Button onClick={abrirCriar} sx={{ ...botaoMobileMais }}>
               <AddIcon />
             </Button>
           ) : (
@@ -111,16 +115,16 @@ export const Usuarios = () => {
         ) : (
           <MuiTableContainer
             columns={DADOS_EXIBICAO_USARIOS}
-            rows={filteredRows}
+            rows={rowsComTempoEmpresa}
             lastColumn="Editar"
             actions={actions}
-            tableHeadSx={{ minWidth: 100 }}
             LastColumnSx={{ textAlign: "end" }}
             tableIConSx={{ justifyContent: "end" }}
             containerSx={{
               ...scrollResponse(theme),
             }}
           />
+
         )}
       </Box>
 

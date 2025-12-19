@@ -1,5 +1,5 @@
 import { Box, Typography, Card, Stack, Button, IconButton, useTheme, useMediaQuery } from '@mui/material';
-import { TelasStyles } from '../../styles/styleresposecomun.styles';
+import { dadosNãoEncostrado, TelasStyles } from '../../styles/stylesComun.styles';
 import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -8,12 +8,13 @@ import { POLITICAS_MOCK } from './util/util';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import { PoliticaDrawer } from './components/PoliticaDrawer';
 import { useToast } from '../../hooks/useToast.hook';
+import { botaoMobileMais } from '../../styles/styleresposecomun.styles';
 
 export const Politicas = () => {
     const theme = useTheme();
     const { showToast } = useToast();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-    
+
     const [busca, setBusca] = useState("");
     const [politicas, setPoliticas] = useState(POLITICAS_MOCK);
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -38,7 +39,6 @@ export const Politicas = () => {
 
     return (
         <Box sx={{ ...TelasStyles }}>
-            {/* Cabeçalho */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 5 }}>
                 <Box>
                     <Typography fontWeight={700} variant='h5'>Políticas da Empresa</Typography>
@@ -47,22 +47,18 @@ export const Politicas = () => {
                     </Typography>
                 </Box>
                 <Box>
-                    <Button
-                        variant="contained"
-                        startIcon={<AddIcon />}
-                        onClick={() => setOpenDrawer(true)}
-                        sx={isMobile ? {
-                            minWidth: "48px", width: "48px", height: "48px", borderRadius: "50%", px: 0
-                        } : {
-                            
-                        }}
-                    >
-                        {!isMobile && "Nova Política"}
-                    </Button>
+                    {isMobile ? (
+                        <Button onClick={() => setOpenDrawer(true)} sx={{ ...botaoMobileMais }}>
+                            <AddIcon />
+                        </Button>
+                    ) : (
+                        <Button startIcon={<AddIcon />} onClick={() => setOpenDrawer(true)} variant="contained" >
+                            Novo politicas
+                        </Button>
+                    )}
                 </Box>
             </Box>
 
-            {/* Busca */}
             <Box sx={{ mb: 4, width: { xs: "100%", sm: "45%" } }}>
                 <SearchInput
                     placeholder="Pesquisar por título ou categoria..."
@@ -71,17 +67,16 @@ export const Politicas = () => {
                 />
             </Box>
 
-            {/* Lista */}
             <Stack spacing={2}>
                 {filtradas.length > 0 ? (
                     filtradas.map((item) => (
-                        <Card 
-                            key={item.id} 
-                            variant="outlined" 
+                        <Card
+                            key={item.id}
+                            variant="outlined"
                             onClick={() => handleOpenPDF(item.url)}
-                            sx={{ 
-                                borderRadius: 2, 
-                                p: 2, 
+                            sx={{
+                                borderRadius: 2,
+                                p: { xs: 1, sm: 2 },
                                 cursor: 'pointer',
                                 transition: '0.3s',
                                 '&:hover': {
@@ -97,7 +92,7 @@ export const Politicas = () => {
                                     color: 'primary.main',
                                     p: 1.5,
                                     borderRadius: 2,
-                                    display: 'flex'
+                                    display: { xs: "none", sm: "flex" }
                                 }}>
                                     <DescriptionIcon fontSize="large" />
                                 </Box>
@@ -109,7 +104,7 @@ export const Politicas = () => {
                                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                                         {item.descricao}
                                     </Typography>
-                                    <Stack direction="row" spacing={2}>
+                                    <Stack direction="row" spacing={{ xs: 3, sm: 2 }}>
                                         <Typography variant="caption" sx={{ fontWeight: 600, color: 'primary.main' }}>
                                             • {item.categoria}
                                         </Typography>
@@ -121,7 +116,7 @@ export const Politicas = () => {
 
                                 <IconButton
                                     onClick={(e) => {
-                                        e.stopPropagation(); // Evita abrir o PDF ao deletar
+                                        e.stopPropagation();
                                         handleDelete(item.id);
                                     }}
                                     sx={{ color: theme.palette.error.main }}
@@ -132,8 +127,8 @@ export const Politicas = () => {
                         </Card>
                     ))
                 ) : (
-                    <Typography color="text.secondary" textAlign="center" mt={4}>
-                        Nenhuma política encontrada.
+                    <Typography sx={{ ...dadosNãoEncostrado }}>
+                        Nenhuma política encontrada ou erro de digitação.
                     </Typography>
                 )}
             </Stack>
@@ -146,7 +141,7 @@ export const Politicas = () => {
                         ...dados,
                         id: Date.now(),
                         ultimaAtualizacao: new Date().toLocaleDateString('pt-BR'),
-                        url: dados.linkDocumento // Garante que o link vá para o campo url
+                        url: dados.linkDocumento
                     };
                     setPoliticas(prev => [nova, ...prev]);
                 }}

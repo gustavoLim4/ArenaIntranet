@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { TelasStyles } from '../../styles/styleresposecomun.styles'
+import { TelasStyles } from '../../styles/stylesComun.styles'
 
 export const ManualCultura = () => {
   return (

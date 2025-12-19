@@ -8,7 +8,10 @@ export interface Usuario {
   setor: string;
   cargo: string;
   dataNasc: string;
+  dataAdmissao: string;
   usuario: string;
+  telefone: string;
+  email: string;
   [key: string]: string | number | React.ReactNode | undefined;
 }
 
@@ -20,6 +23,9 @@ export interface UsuarioForm {
   cargo: string;
   dataNasc: string;
   senha?: string;
+  telefone: string;
+  email: string;
   usuario: string;
+  dataAdmissao: string;
   foto?: React.ReactNode;
 }
