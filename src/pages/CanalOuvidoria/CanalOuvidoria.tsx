@@ -28,7 +28,6 @@ const handleSend = () => {
     setLoading(true);
     
     setTimeout(() => {
-        // Tipamos o objeto explicitamente
         const novoRelato: MensagemOuvidoria = {
             id: Date.now(), 
             data: new Date().toLocaleDateString('pt-BR'),

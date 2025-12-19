@@ -18,6 +18,7 @@ import SearchInput from "../../../components/SearchInput/SearchInput";
 import { COLUNAS_MODELOS_EQUIPAMENTO } from "../util/utils";
 import theme from "../../../theme";
 import { botaoMobileMais, scrollResponse } from "../../../styles/styleresposecomun.styles";
+import { useToast } from "../../../hooks/useToast.hook";
 
 
 interface ModalModelosEquipamentoProps {
@@ -32,6 +33,7 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
     const [search, setSearch] = useState("");
     const [modelosState, setModelosState] = useState<ModeloEquipamento[]>([]);
     const [loading, setLoading] = useState(false);
+    const { showToast } = useToast();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     useEffect(() => {
@@ -80,6 +82,7 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
         setTimeout(() => {
             setLoading(false);
             onClose();
+            showToast("Equipamento atualizado com sucesso", "success");
         }, 600);
     };
     const handleDelete = (row: ModeloEquipamento) => {
@@ -140,7 +143,7 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
     return (
         <Modal open={open} onClose={onClose}>
             <Box sx={{ width: { xs: "90%", sm: 630, md: 700 }, bgcolor: "background.paper", borderRadius: 2, boxShadow: 24, p: 2.5, position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", }}>
-               
+
                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
                     <Typography fontWeight={600}>
                         Modelos — {equipamento}
@@ -153,9 +156,10 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
 
                 <Divider sx={{ mb: 3 }} />
 
-                <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
-                    <SearchInput placeholder="Buscar modelo..." value={search} onChange={(e) => setSearch(e.target.value)} />
-
+                <Box sx={{ display: "flex", gap: 1, mb: 3, alignItems: "center", justifyContent: "space-between" }}>
+                    <Box sx={{ width: { xs: 250, sm: 450 } }}>
+                        <SearchInput placeholder="Buscar modelo..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                    </Box>
                     <Box>
                         {isMobile ? (
                             <Button sx={{ ...botaoMobileMais }}>
@@ -163,7 +167,7 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
                             </Button>
                         ) : (
                             <Button startIcon={<AddIcon />} variant="contained">
-                                Novo usuário
+                                Novo modelo
                             </Button>
                         )}
                     </Box>
@@ -181,7 +185,7 @@ export const ModalModelosEquipamento = ({ open, equipamento, modelos, onClose, o
                     }}
                 />
 
-                <Box sx={{ mt: 3, display: "flex", justifyContent: "flex-end", gap: 1, }}>
+                <Box sx={{ mt: 5, display: "flex", justifyContent: "flex-end", gap: 1, }}>
                     <Button variant="outlined" onClick={onClose} disabled={loading}>
                         Cancelar
                     </Button>

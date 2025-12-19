@@ -30,7 +30,7 @@ export const App = () => {
           <Route path="/colaboradores" element={<Usuarios />} />                {/*✅*/}
           <Route path="/comunicadogeral" element={<ComunicadoGeral />} />       {/*✅*/}
           <Route path="/treinamentos" element={<Treinamentos />} />             {/*✅*/}
-          <Route path="/conhecimentos" element={<Conhecimentos />} />           {/*✅*/}
+          <Route path="/conhecimentos" element={<Conhecimentos />} />           {/*❌*/}
           <Route path="/canalouvidoria" element={<CanalOuvidoria />} />         {/*✅*/}
           <Route path="/manualcultura" element={<ManualCultura />} />           {/*❌*/}
           <Route path="/organograma" element={<Organograma />} />               {/*✅*/}

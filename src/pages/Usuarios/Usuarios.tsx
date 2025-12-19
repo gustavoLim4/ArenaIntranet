@@ -13,12 +13,14 @@ import { gerarAvatar } from "./components/Avatar/avatar";
 import { dadosNãoEncostrado, TelasStyles } from "../../styles/stylesComun.styles";
 import { useToast } from "../../hooks/useToast.hook";
 import { calcularTempoEmpresa } from "../../util/masc";
+import { UsuarioInfoModal } from "./components/ModalUser/ModalUser";
 
 export const Usuarios = () => {
   const [rows, setRows] = useState<Usuario[]>(USUARIOS_MOCK);
   const [search, setSearch] = useState("");
   const [openDrawer, setOpenDrawer] = useState(false);
   const [modo, setModo] = useState<"criar" | "editar">("criar");
+  const [openInfo, setOpenInfo] = useState(false);
   const [usuarioSelecionado, setUsuarioSelecionado] = useState<Usuario | null>(null);
   const { showToast } = useToast();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -60,6 +62,14 @@ export const Usuarios = () => {
     showToast("Colaborador criado com sucesso", "success")
     setOpenDrawer(false);
   };
+
+
+  const handleVerDetalhes = (row: Usuario) => {
+    const usuario = row as Usuario;
+    setUsuarioSelecionado(usuario);
+    setOpenInfo(true);
+  };
+
   const filteredRows = useMemo<Usuario[]>(() => {
     const termo = search.toLowerCase().trim();
     if (!termo) return rows;
@@ -116,6 +126,7 @@ export const Usuarios = () => {
           <MuiTableContainer
             columns={DADOS_EXIBICAO_USARIOS}
             rows={rowsComTempoEmpresa}
+            onRowClick={(row) => handleVerDetalhes(row as unknown as Usuario)}
             lastColumn="Editar"
             actions={actions}
             LastColumnSx={{ textAlign: "end" }}
@@ -134,6 +145,12 @@ export const Usuarios = () => {
         modo={modo}
         usuarioSelecionado={usuarioSelecionado}
         onSave={handleSave}
+      />
+
+      <UsuarioInfoModal
+        open={openInfo}
+        onClose={() => setOpenInfo(false)}
+        usuario={usuarioSelecionado}
       />
     </Box>
   );
