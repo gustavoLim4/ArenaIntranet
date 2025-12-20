@@ -9,11 +9,11 @@ import { UsuarioDrawer } from "./components/UsuarioDrawer/UsuarioDrawer";
 import { DADOS_EXIBICAO_USARIOS, USUARIOS_MOCK, } from "./util/constants";
 import { botaoMobileMais, containerTableResposeStyles, scrollResponse } from "../../styles/styleresposecomun.styles";
 import type { Usuario, UsuarioForm } from "./types/types";
-import { gerarAvatar } from "./components/Avatar/avatar";
 import { dadosNãoEncostrado, TelasStyles } from "../../styles/stylesComun.styles";
 import { useToast } from "../../hooks/useToast.hook";
 import { calcularTempoEmpresa } from "../../util/masc";
 import { UsuarioInfoModal } from "./components/ModalUser/ModalUser";
+import { gerarAvatar } from "./components/Avatar/AvatarMont";
 
 export const Usuarios = () => {
   const [rows, setRows] = useState<Usuario[]>(USUARIOS_MOCK);

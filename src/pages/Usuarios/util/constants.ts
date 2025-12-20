@@ -1,44 +1,18 @@
 import type { TableColumn } from "../../../components/Table/types";
 import type { Usuario } from "../types/types";
-import { gerarAvatar } from "../components/Avatar/avatar";
-
+import { calcularTempoEmpresa } from "../../../util/masc";
+import { gerarAvatar } from "../components/Avatar/AvatarMont";
 
 export const DADOS_EXIBICAO_USARIOS: TableColumn[] = [
-    {
-        label: "Fotos",
-        key: "foto",
-    },
-    {
-        label: "Nome",
-        key: "nome",
-    },
-    {
-        label: "Telefone",
-        key: "telefone",
-    },
-    {
-        label: "Empresa",
-        key: "empresa",
-    },
-    {
-        label: "Data de admissão",
-        key: "dataAdmissao",
-    },
-    {
-        label: "Setor",
-        key: "setor",
-    },
-    {
-        label: "Cargo",
-        key: "cargo",
-    },
-    {
-        label: "Permanência",
-        key: "tempoEmpresa",
-    },
+    { label: "Fotos", key: "foto" },
+    { label: "Nome", key: "nome" },
+    { label: "Telefone", key: "telefone" },
+    { label: "Empresa", key: "empresa" },
+    { label: "Data de admissão", key: "dataAdmissao" },
+    { label: "Setor", key: "setor" },
+    { label: "Cargo", key: "cargo" },
+    { label: "Permanência", key: "tempoEmpresa" },
 ];
-
-
 
 export const USUARIOS_MOCK: Usuario[] = [
     {
@@ -53,6 +27,7 @@ export const USUARIOS_MOCK: Usuario[] = [
         telefone: "(11) 94489-2012",
         email: "gustavolima@gmail.com",
         foto: gerarAvatar("Gustavo Lima"),
+        tempoEmpresa: calcularTempoEmpresa("11/01/2020"),
     },
     {
         id: 2,
@@ -64,8 +39,9 @@ export const USUARIOS_MOCK: Usuario[] = [
         cargo: "Analista Financeiro",
         usuario: "maria.oliveira",
         telefone: "(11) 94489-2012",
-        email: "gustavolima@gmail.com",
+        email: "maria.oliveira@gmail.com",
         foto: gerarAvatar("Maria Oliveira"),
+        tempoEmpresa: calcularTempoEmpresa("10/09/2013"),
     },
     {
         id: 3,
@@ -77,8 +53,9 @@ export const USUARIOS_MOCK: Usuario[] = [
         cargo: "Analista de Recursos Humanos",
         usuario: "carlos.pereira",
         telefone: "(11) 94489-2012",
-        email: "gustavolima@gmail.com",
+        email: "carlos.pereira@gmail.com",
         foto: gerarAvatar("Carlos Pereira"),
+        tempoEmpresa: calcularTempoEmpresa("05/03/2010"),
     },
     {
         id: 4,
@@ -90,10 +67,8 @@ export const USUARIOS_MOCK: Usuario[] = [
         cargo: "Executiva de Vendas",
         usuario: "ana.souza",
         telefone: "(11) 94489-2012",
-        email: "gustavolima@gmail.com",
+        email: "ana.souza@gmail.com",
         foto: gerarAvatar("Ana Souza"),
+        tempoEmpresa: calcularTempoEmpresa("01/12/2024"),
     },
 ];
-
-
-
