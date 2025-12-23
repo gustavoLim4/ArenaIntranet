@@ -8,8 +8,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { ORGANOGRAMA_DATA } from './util/util';
+import type { CardPessoaProps, Pessoa } from './types/typesLiderado';
+import { ModalPessoa } from './components/ModalOrganograma/MoldaOrganograma';
+import { useState } from 'react';
+import { useToast } from '../../hooks/useToast.hook';
 
-const CardLiderado = ({ nome, cargo, foto, onEdit }: any) => {
+const CardLiderado = ({ nome, cargo, foto, onEdit }: CardPessoaProps) => {
   return (
     <Paper elevation={0} sx={{ p: 1.5, display: 'flex', alignItems: 'center', gap: 2, width: '100%', borderRadius: 2, border: `1px solid #e0e0e0`, bgcolor: 'background.paper', }} >
       <Avatar src={foto} sx={{ width: 38, height: 38 }} />
@@ -30,11 +34,62 @@ const CardLiderado = ({ nome, cargo, foto, onEdit }: any) => {
 
 export const Organograma = () => {
   const theme = useTheme();
-  const ceo = ORGANOGRAMA_DATA[0].gestor;
-  const setores = ORGANOGRAMA_DATA.slice(1);
 
-  const handleAddMember = (setorNome: string) => console.log(`Adicionando ao setor: ${setorNome}`);
-  const handleEditMember = (nome: string) => console.log(`Editando: ${nome}`);
+  const [orgData, setOrgData] = useState(ORGANOGRAMA_DATA);
+  const ceo = orgData[0].gestor;
+  const setores = orgData.slice(1);
+  const { showToast } = useToast();
+
+  const [setorSelecionado, setSetorSelecionado] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [pessoaEdit, setPessoaEdit] = useState<Pessoa | null>(null);
+
+  const handleAddMember = (setor: string) => {
+    setPessoaEdit(null);
+    setSetorSelecionado(setor);
+    setModalOpen(true);
+  };
+
+  const handleEditMember = (pessoa: Pessoa) => {
+    setPessoaEdit(pessoa);
+    setSetorSelecionado(null);
+    setModalOpen(true);
+  };
+
+  const handleSaveData = (formData: Pessoa) => {
+    const newData = [...orgData];
+
+    if (pessoaEdit) {
+
+      if (newData[0].gestor.id === formData.id) {
+        newData[0].gestor = formData;
+      } else {
+        newData.forEach(item => {
+          if (item.gestor.id === formData.id) {
+            item.gestor = formData;
+          }
+          if (item.liderados) {
+            const indexLiderado = item.liderados.findIndex(p => p.id === formData.id);
+            if (indexLiderado !== -1) {
+              item.liderados[indexLiderado] = formData;
+            }
+          }
+        });
+      }
+    } else {
+      const newPessoa = { ...formData, id: Math.floor(Math.random() * 10000) };
+      const setorIndex = newData.findIndex(item => item.setor === setorSelecionado);
+      if (setorIndex !== -1) {
+        if (!newData[setorIndex].liderados) {
+          newData[setorIndex].liderados = [];
+        }
+        newData[setorIndex].liderados.push(newPessoa);
+      }
+    }
+    setOrgData(newData);
+    setModalOpen(false);
+    showToast("Novo integrante criado com sucesso", "success");
+  };
 
   return (
     <Box sx={{ ...TelasStyles }}>
@@ -52,27 +107,31 @@ export const Organograma = () => {
               {ceo.cargo}
             </Typography>
           </Box>
+          <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleEditMember(ceo); }}>
+            <EditIcon fontSize="small" sx={{ color: "primary.main" }} />
+          </IconButton>
         </Paper>
         <ArrowDownwardIcon sx={{ mt: 2, color: 'divider' }} />
       </Box>
 
+      {/* Lista de Setores */}
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', alignItems: 'flex-start' }}>
-        {setores.map((setor) => (
-          <Box key={setor.setor} sx={{ width: 400 }}>
+        {setores.map((setorItem) => (
+          <Box key={setorItem.setor} sx={{ width: 400 }}>
             <Divider sx={{ mb: 2 }}>
-              <Typography variant="caption" fontWeight={700} color="text.secondary">{setor.setor}</Typography>
+              <Typography variant="caption" fontWeight={700} color="text.secondary">{setorItem.setor}</Typography>
             </Divider>
 
             <Accordion elevation={0} sx={{ bgcolor: 'transparent', '&:before': { display: 'none' }, }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "secondary.main" }} />} sx={{ p: 0, '& .MuiAccordionSummary-content': { m: 0 }, '& .MuiAccordionSummary-expandIconWrapper': { position: 'absolute', right: 10, } }}>
                 <Paper elevation={0} sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2, width: '100%', borderRadius: 2, border: `1px solid ${theme.palette.primary.main}`, bgcolor: 'rgba(25, 118, 210, 0.04)', }}>
-                  <Avatar src={setor.gestor.foto} sx={{ width: 42, height: 42, border: `2px solid ${theme.palette.primary.main}` }} />
+                  <Avatar src={setorItem.gestor.foto} sx={{ width: 42, height: 42, border: `2px solid ${theme.palette.primary.main}` }} />
                   <Box sx={{ flexGrow: 1 }}>
-                    <Typography variant="subtitle2" fontWeight={700}>{setor.gestor.nome}</Typography>
-                    <Typography variant="caption" color="text.secondary">{setor.gestor.cargo}</Typography>
+                    <Typography variant="subtitle2" fontWeight={700}>{setorItem.gestor.nome}</Typography>
+                    <Typography variant="caption" color="text.secondary">{setorItem.gestor.cargo}</Typography>
                   </Box>
 
-                  <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleEditMember(setor.gestor.nome); }} sx={{ mr: 4 }} >
+                  <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleEditMember(setorItem.gestor); }} sx={{ mr: 4 }} >
                     <EditIcon fontSize="small" sx={{ color: "primary.main" }} />
                   </IconButton>
                 </Paper>
@@ -80,17 +139,17 @@ export const Organograma = () => {
 
               <AccordionDetails sx={{ p: 0, mt: 1.5 }}>
                 <Stack spacing={1} sx={{ alignItems: 'center', }}>
-                  {setor.liderados.map((liderado) => (
+                  {setorItem.liderados && setorItem.liderados.map((liderado) => (
                     <CardLiderado
                       key={liderado.id}
                       nome={liderado.nome}
                       cargo={liderado.cargo}
                       foto={liderado.foto}
-                      onEdit={() => handleEditMember(liderado.nome)}
+                      onEdit={() => handleEditMember(liderado)}
                     />
                   ))}
 
-                  <Button fullWidth variant="outlined" startIcon={<AddIcon />} onClick={() => handleAddMember(setor.setor)}
+                  <Button fullWidth variant="outlined" startIcon={<AddIcon />} onClick={() => handleAddMember(setorItem.setor)}
                     sx={{ borderStyle: 'dashed', textTransform: 'none', borderRadius: 2, mt: 1, bgcolor: 'background.paper' }}>
                     Novo Integrante
                   </Button>
@@ -100,6 +159,14 @@ export const Organograma = () => {
           </Box>
         ))}
       </Box>
+
+      <ModalPessoa
+        open={modalOpen}
+        initialData={pessoaEdit}
+        setor={setorSelecionado}
+        onClose={() => setModalOpen(false)}
+        onSave={handleSaveData}
+      />
     </Box>
   );
 };

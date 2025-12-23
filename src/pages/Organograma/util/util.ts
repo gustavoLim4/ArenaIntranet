@@ -1,4 +1,6 @@
-export const ORGANOGRAMA_DATA = [
+import type { Setor } from "../types/typesLiderado";
+
+export const ORGANOGRAMA_DATA: Setor[] = [
   {
     setor: "Diretoria Executiva",
     gestor: { id: 1, nome: "Carlos Eduardo Silva", cargo: "CEO & Diretor Executivo", foto: "https://i.pravatar.cc/150?u=1" },
