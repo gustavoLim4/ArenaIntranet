@@ -77,7 +77,7 @@ export const Login = () => {
           src={logo}
           alt="Logo"
           sx={{
-            width:  "65%",
+            width: "65%",
             position: { xs: "absolute", md: "static" },
             top: { xs: "120px", sm: "180px", md: "0px" }
           }}
@@ -99,7 +99,7 @@ export const Login = () => {
       >
         <Box
           sx={{
-            minWidth: { xs: "100%",sm:"80%", md: "75%" },
+            minWidth: { xs: "100%", sm: "80%", md: "75%" },
             display: "flex",
             flexDirection: "column",
             gap: 2
@@ -145,9 +145,11 @@ export const Login = () => {
           </Button>
 
           {erroLogin && (
-            <Typography color="error" sx={{ fontSize: "14px", fontWeight: 400, mt: 1 }}>
-              {erroLogin}
-            </Typography>
+            <Box sx={{display: "flex", justifyContent: "center"}}>
+              <Typography color="error" sx={{ fontSize: "14px", fontWeight: 400, mt: 1}}>
+                {erroLogin}
+              </Typography>
+            </Box>
           )}
 
         </Box>

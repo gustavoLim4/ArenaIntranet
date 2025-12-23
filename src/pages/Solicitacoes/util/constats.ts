@@ -70,4 +70,14 @@ export const SOLICITACOES_MOCK: Atendimento[] = [
     status: "Em atendimento",
     horario: "10/09/2025 - 10:09",
   },
+  {
+    id: 8,
+    numero: "67900",
+    nome: "Gustavo",
+    local: "Desenvolvimento front-end",
+    titulo: "Troca de mouse",
+    mensagem: "Impressora solicitando troca de mouse",
+    status: "Em atendimento",
+    horario: "10/09/2025 - 10:09",
+  },
 ];
