@@ -4,7 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 type NavButtonProps = {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   label: string;
   active?: boolean;
   onClick?: () => void;
@@ -34,7 +34,7 @@ export const NavButton: React.FC<NavButtonProps> = ({
         justifyContent: open ? "flex-start" : "center",
         textTransform: "none",
         borderRadius: "12px",
-        paddingX: open ? (small ? "28px" : "14px") : "19px",
+        paddingX: open ? (small ? "12px" : "14px") : "19px",
         fontWeight: small ? 400 : 500,
         fontSize: small ? "0.85rem" : "0.95rem",
         color: active ? theme.palette.background.paper : "#0d3b66",
@@ -74,8 +74,8 @@ export const NavButton: React.FC<NavButtonProps> = ({
         </Box>
 
         {open && expandable && (
-          <Box sx={{ display: "flex", alignItems: "center", pr: 1 }}>
-            {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            {expanded ? <ExpandLessIcon fontSize="inherit" /> : <ExpandMoreIcon fontSize="inherit" />}
           </Box>
         )}
       </Box>

@@ -9,13 +9,13 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { ORGANOGRAMA_DATA } from './util/util';
 import type { CardPessoaProps, Pessoa } from './types/typesLiderado';
-import { ModalPessoa } from './components/ModalOrganograma/MoldaOrganograma';
+import { ModalPessoa } from './ModalOrganograma/MoldaOrganograma';
 import { useState } from 'react';
 import { useToast } from '../../hooks/useToast.hook';
 
 const CardLiderado = ({ nome, cargo, foto, onEdit }: CardPessoaProps) => {
   return (
-    <Paper elevation={0} sx={{ p: 1.5, display: 'flex', alignItems: 'center', gap: 2, width: '100%', borderRadius: 2, border: `1px solid #e0e0e0`, bgcolor: 'background.paper', }} >
+    <Paper elevation={0} sx={{ p: 1.5, display: 'flex', alignItems: 'center', gap: 2, width: '100%', borderRadius: 2, border: `1px solid #bbbbbbff`, bgcolor: 'background.paper', }} >
       <Avatar src={foto} sx={{ width: 38, height: 38 }} />
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="subtitle2" fontWeight={700} fontSize="0.8rem">
@@ -34,15 +34,13 @@ const CardLiderado = ({ nome, cargo, foto, onEdit }: CardPessoaProps) => {
 
 export const Organograma = () => {
   const theme = useTheme();
-
   const [orgData, setOrgData] = useState(ORGANOGRAMA_DATA);
   const ceo = orgData[0].gestor;
   const setores = orgData.slice(1);
-  const { showToast } = useToast();
-
   const [setorSelecionado, setSetorSelecionado] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [pessoaEdit, setPessoaEdit] = useState<Pessoa | null>(null);
+  const { showToast } = useToast();
 
   const handleAddMember = (setor: string) => {
     setPessoaEdit(null);
@@ -114,16 +112,15 @@ export const Organograma = () => {
         <ArrowDownwardIcon sx={{ mt: 2, color: 'divider' }} />
       </Box>
 
-      {/* Lista de Setores */}
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', alignItems: 'flex-start' }}>
         {setores.map((setorItem) => (
           <Box key={setorItem.setor} sx={{ width: 400 }}>
             <Divider sx={{ mb: 2 }}>
-              <Typography variant="caption" fontWeight={700} color="text.secondary">{setorItem.setor}</Typography>
+              <Typography variant="caption" fontWeight={700} color="primary.main">{setorItem.setor}</Typography>
             </Divider>
 
             <Accordion elevation={0} sx={{ bgcolor: 'transparent', '&:before': { display: 'none' }, }}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "secondary.main" }} />} sx={{ p: 0, '& .MuiAccordionSummary-content': { m: 0 }, '& .MuiAccordionSummary-expandIconWrapper': { position: 'absolute', right: 10, } }}>
+              <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "secondary.main" }} />} sx={{ p: 0, '& .MuiAccordionSummary-content': { m: 0 }, '& .MuiAccordionSummary-expandIconWrapper': { position: 'absolute', right: 15, } }}>
                 <Paper elevation={0} sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2, width: '100%', borderRadius: 2, border: `1px solid ${theme.palette.primary.main}`, bgcolor: 'rgba(25, 118, 210, 0.04)', }}>
                   <Avatar src={setorItem.gestor.foto} sx={{ width: 42, height: 42, border: `2px solid ${theme.palette.primary.main}` }} />
                   <Box sx={{ flexGrow: 1 }}>

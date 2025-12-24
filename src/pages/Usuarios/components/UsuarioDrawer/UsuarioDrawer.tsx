@@ -1,15 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-    Box,
-    Typography,
-    Button,
-    Drawer,
-    TextField,
-    useTheme,
-    MenuItem,
-    Avatar,
-    IconButton,
-} from "@mui/material";
+import { Box, Typography, Button, Drawer, TextField, useTheme, MenuItem, Avatar, IconButton, } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { useMediaQuery } from "@mui/material";
@@ -102,6 +92,7 @@ export const UsuarioDrawer = ({
     };
 
     return (
+
         <Drawer anchor="right" open={open} onClose={onClose} sx={{ zIndex: theme.zIndex.drawer + 2 }} >
             <Box sx={{ width: { xs: 330, md: 450 }, height: "100%", display: "flex", flexDirection: "column", bgcolor: theme.palette.background.paper, }}>
                 <Typography variant="h6" sx={{ p: 2, bgcolor: theme.palette.primary.main, color: theme.palette.background.paper, }} >

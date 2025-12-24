@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,25 +15,47 @@ import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import PolicyIcon from "@mui/icons-material/Policy";
 import BookIcon from '@mui/icons-material/Book';
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import TireRepairIcon from "@mui/icons-material/TireRepair";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import WarehouseIcon from "@mui/icons-material/Warehouse";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import AltRouteIcon from "@mui/icons-material/AltRoute";
+import MemoryIcon from "@mui/icons-material/Memory";
 
 import theme from "../../theme";
 import { NavButton } from "./NavButton";
 import { EsconderScrollCelular, EsconderScrollDesktop } from "../../styles/stylesComun.styles";
+import type { MenuGroup } from "./types";
 
 const drawerWidth = 240;
 
 export default function MainLayout() {
   const [open, setOpen] = useState(true);
   const [openMob, setOpenMob] = useState(false);
-
+  const [openKnowledge, setOpenKnowledge] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
+  useEffect(() => {
+    if (location.pathname.startsWith("/conhecimentos")) {
+      setOpenKnowledge(true);
+    }
+  }, [location.pathname]);
+
   const handleDrawerToggle = () => {
     setOpen(!open);
     setOpenMob(!openMob);
+
+    if (open) {
+      setOpenKnowledge(false);
+    }
   };
+
 
   const handleLogout = () => {
     navigate("/", { replace: true });
@@ -45,7 +67,8 @@ export default function MainLayout() {
     path: "/home",
   };
 
-  const menuGroups = [
+  const menuGroups: MenuGroup[] = [
+
     {
       title: "Comunicação Interna",
       items: [
@@ -62,7 +85,59 @@ export default function MainLayout() {
         {
           text: "Base de Conhecimento",
           icon: <PsychologyIcon />,
-          path: "/conhecimentos",
+          expandable: true,
+          items: [
+            {
+              text: "Borracharia",
+              icon: <TireRepairIcon />,
+              path: "/conhecimentos/borracharia",
+            },
+            {
+              text: "Comercial",
+              icon: <StorefrontIcon />,
+              path: "/conhecimentos/comercial",
+            },
+            {
+              text: "Compras",
+              icon: <ShoppingCartIcon />,
+              path: "/conhecimentos/compras",
+            },
+            {
+              text: "Consultoria",
+              icon: <SupportAgentIcon />,
+              path: "/conhecimentos/consultoria",
+            },
+            {
+              text: "Diretoria",
+              icon: <EmojiEventsIcon />,
+              path: "/conhecimentos/diretoria",
+            },
+            {
+              text: "E-commerce",
+              icon: <ShoppingBagIcon />,
+              path: "/conhecimentos/ecommerce",
+            },
+            {
+              text: "Estoque",
+              icon: <WarehouseIcon />,
+              path: "/conhecimentos/estoque",
+            },
+            {
+              text: "Financeiro",
+              icon: <AccountBalanceIcon />,
+              path: "/conhecimentos/financeiro",
+            },
+            {
+              text: "Roteirização",
+              icon: <AltRouteIcon />,
+              path: "/conhecimentos/roteirizacao",
+            },
+            {
+              text: "Tecnologia",
+              icon: <MemoryIcon />,
+              path: "/conhecimentos/tecnologia",
+            },
+          ],
         },
         {
           text: "Políticas da Empresa",
@@ -127,8 +202,26 @@ export default function MainLayout() {
       ],
     },
   ];
+  const currentTitle =
+    location.pathname.startsWith(homeItem.path)
+      ? homeItem.text
+      : (() => {
+        for (const group of menuGroups) {
+          for (const item of group.items) {
+            if (item.path && location.pathname.startsWith(item.path)) {
+              return item.text;
+            }
+            if (item.items) {
+              const sub = item.items.find((sub) =>
+                location.pathname.startsWith(sub.path)
+              );
+              if (sub) return sub.text;
+            }
+          }
+        }
+        return "Arena Intranet";
+      })();
 
-  const currentTitle = location.pathname.startsWith(homeItem.path) ? homeItem.text : menuGroups.flatMap((group) => group.items).find((item) => location.pathname.startsWith(item.path))?.text || "Arena Intranet";
 
 
   const renderMenu = (isOpen: boolean, onItemClick?: () => void) => (
@@ -158,19 +251,68 @@ export default function MainLayout() {
             </Box>
           )}
 
-          {group.items.map((item) => (
-            <NavButton
-              key={item.text}
-              icon={item.icon}
-              label={item.text}
-              active={location.pathname.startsWith(item.path)}
-              onClick={() => {
-                navigate(item.path);
-                onItemClick?.();
-              }}
-              open={isOpen}
-            />
-          ))}
+          {group.items.map((item) => {
+
+            if (item.expandable && item.items) {
+              const isActive = location.pathname.startsWith("/conhecimentos");
+
+              return (
+                <Box key={item.text}>
+                  <NavButton
+                    icon={item.icon}
+                    label={item.text}
+                    open={isOpen}
+                    active={isActive}
+                    expandable
+                    expanded={openKnowledge}
+                    onClick={() => {
+                      if (!isOpen) {
+                        setOpen(true);
+                      }
+                      setOpenKnowledge((prev) => !prev);
+                    }}
+                  />
+
+                  {openKnowledge && isOpen && (
+                    <Box sx={{ ml: 3 }}>
+                      {item.items.map((sub) => (
+                        <NavButton
+                          key={sub.text}
+                          icon={sub.icon}
+                          label={sub.text}
+                          open={isOpen}
+                          small
+                          active={location.pathname === sub.path}
+                          onClick={() => {
+                            navigate(sub.path);
+                            onItemClick?.();
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  )}
+                </Box>
+              );
+            }
+
+            return (
+              <NavButton
+                key={item.text}
+                icon={item.icon}
+                label={item.text}
+                active={!!item.path && location.pathname.startsWith(item.path)}
+                onClick={() => {
+                  if (!item.path) return;
+
+                  navigate(item.path);
+                  onItemClick?.();
+                }}
+                open={isOpen}
+              />
+            );
+          })}
+
+
         </Box>
       ))}
     </List>
