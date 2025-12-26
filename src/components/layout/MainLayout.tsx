@@ -24,7 +24,8 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AltRouteIcon from "@mui/icons-material/AltRoute";
-import MemoryIcon from "@mui/icons-material/Memory";
+import ContactsIcon from '@mui/icons-material/Contacts';
+import PhonelinkIcon from '@mui/icons-material/Phonelink';
 
 import theme from "../../theme";
 import { NavButton } from "./NavButton";
@@ -88,6 +89,11 @@ export default function MainLayout() {
           expandable: true,
           items: [
             {
+              text: "Conhecimentos gerais",
+              icon: <ContactsIcon />,
+              path: "/conhecimentos/conhecimentosgerais",
+            },
+            {
               text: "Borracharia",
               icon: <TireRepairIcon />,
               path: "/conhecimentos/borracharia",
@@ -134,7 +140,7 @@ export default function MainLayout() {
             },
             {
               text: "Tecnologia",
-              icon: <MemoryIcon />,
+              icon: <PhonelinkIcon />,
               path: "/conhecimentos/tecnologia",
             },
           ],

@@ -22,6 +22,7 @@ import { Estoque } from "./pages/Conhecimentos/pages/Estoque/Estoque";
 import { Financeiro } from "./pages/Conhecimentos/pages/Financeiro/Financeiro";
 import { Roteirizacao } from "./pages/Conhecimentos/pages/Roteirizacao/Roteirizacao";
 import { Tecnologia } from "./pages/Conhecimentos/pages/Tecnologia/Tecnologia";
+import { ConhecimentosGerais } from "./pages/Conhecimentos/pages/ConhecimentosGerais/ConhecimentosGerais";
 
 
 export const App = () => {
@@ -46,6 +47,7 @@ export const App = () => {
 
           {/* Pages de base de conhecimentos */}
 
+          <Route path="/conhecimentos/conhecimentosgerais" element={<ConhecimentosGerais />} />         {/*❌*/}
           <Route path="/conhecimentos/borracharia" element={<Borracharia />} />         {/*❌*/}
           <Route path="/conhecimentos/comercial" element={<Comercial />} />             {/*❌*/}
           <Route path="/conhecimentos/compras" element={<Compras />} />                 {/*❌*/}
